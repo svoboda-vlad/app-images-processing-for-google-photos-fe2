@@ -1,0 +1,63 @@
+<h2>User Registration</h2>
+<div class="alert alert-danger" *ngIf="registrationUserError">
+  <strong>Failed to register!</strong> Please check your username and password.
+</div>
+<form class="form" (ngSubmit)="register()" [formGroup]="registrationUserForm">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" formControlName="username" />
+    <div *ngIf="username">
+      <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+        <div *ngIf="username.errors">
+          <div *ngIf="username.errors.required || username.errors.minlength || username.errors.maxlength">
+            Username must be between 1 and 255 characters long.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" formControlName="password" />
+    <div *ngIf="password">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+        <div *ngIf="password.errors">
+          <div *ngIf="password.errors.required || password.errors.minlength || password.errors.maxlength">
+            Password must be between 4 and 100 characters long.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="givenName">Given Name</label>
+    <input type="text" class="form-control" formControlName="givenName" />
+    <div *ngIf="givenName">
+      <div *ngIf="givenName.invalid && (givenName.dirty || givenName.touched)" class="alert alert-danger">
+        <div *ngIf="givenName.errors">
+          <div *ngIf="givenName.errors.required || givenName.errors.minlength || givenName.errors.maxlength">
+            Given name must be between 1 and 255 characters long.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="familyName">Family Name</label>
+    <input type="text" class="form-control" formControlName="familyName" />
+    <div *ngIf="familyName">
+      <div *ngIf="familyName.invalid && (familyName.dirty || familyName.touched)" class="alert alert-danger">
+        <div *ngIf="familyName.errors">
+          <div *ngIf="familyName.errors.required || familyName.errors.minlength || familyName.errors.maxlength">
+            Family name must be between 1 and 255 characters long.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="registrationUserForm.invalid">Register</button>
+</form>

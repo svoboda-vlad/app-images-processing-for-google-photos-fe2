@@ -17,6 +17,11 @@
         </li>
         <li class="nav-item" *ngIf="isLoggedIn()">
           <span *ngIf="isAdmin()">
+            <a routerLink="/admin/parameters-default" class="nav-link" routerLinkActive="active">Admin - Parameters (default)</a>
+          </span>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <span *ngIf="isAdmin()">
             <a routerLink="/admin/users" class="nav-link" routerLinkActive="active">Admin - Users</a>
           </span>
         </li>

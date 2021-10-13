@@ -1,0 +1,42 @@
+<h2>Parameters (default)</h2>
+<div *ngIf="parametersDefault$ | async as parametersDefault; else loadingOrError">
+  <div class="table-responsive-sm" *ngIf="parametersDefault; else notFound">
+    <table class="table table-sm">
+      <thead>
+        <tr class="table-secondary">
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Time diff for groups (in sec)</th>
+          <td>{{ parametersDefault.timeDiffGroup }}</td>
+        </tr>
+        <tr>
+          <th>Resize width (px)</th>
+          <td>{{ parametersDefault.resizeWidth }}</td>
+        </tr>
+        <tr>
+          <th>Resize height (px)</th>
+          <td>{{ parametersDefault.resizeHeight }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <button class="btn btn-primary m-1" routerLink="/parameters-default/edit">Edit</button>
+    </div>
+  </div>
+  <ng-template #notFound>
+    <div class="alert alert-warning">No record found.</div>
+  </ng-template>
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>

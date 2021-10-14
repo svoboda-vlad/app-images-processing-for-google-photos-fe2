@@ -3,7 +3,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription, Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { ParametersDefaultService, ProcessingParametersDefault } from '../parameters-default/parameters-default.service';
+import { ParametersDefaultService, ParametersDefault } from '../parameters-default/parameters-default.service';
 
 @Component({
   selector: 'ipfgp-parameters-default-edit',
@@ -15,8 +15,8 @@ export class ParametersDefaultEditComponent implements OnInit {
   parametersDefaultUpdateError = false;
   error!: Object;
   parametersDefaultUpdateSubscription!: Subscription;
-  parametersDefault$!: Observable<ProcessingParametersDefault>;
-  parametersDefaultObject!: ProcessingParametersDefault;
+  parametersDefault$!: Observable<ParametersDefault>;
+  parametersDefaultObject!: ParametersDefault;
 
   parametersDefaultEditForm = this.fb.group({
     timeDiffGroup: [null, [Validators.required, Validators.min(60), Validators.max(86400)]],
@@ -48,7 +48,7 @@ export class ParametersDefaultEditComponent implements OnInit {
   }
 
   updateParametersDefault(): void {
-    const parametersDefault: ProcessingParametersDefault = new ProcessingParametersDefault(
+    const parametersDefault: ParametersDefault = new ParametersDefault(
       this.parametersDefaultEditForm.get('timeDiffGroup')!.value,
       this.parametersDefaultEditForm.get('resizeWidth')!.value,
       this.parametersDefaultEditForm.get('resizeHeight')!.value

@@ -15,18 +15,18 @@ export class ParametersDefaultService {
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
 
-  getParametersDefault() : Observable<ProcessingParametersDefault> {
-    return this.http.get<ProcessingParametersDefault>(environment.SERVER_URL + this.adminParametersDefaultUrl).pipe(
+  getParametersDefault() : Observable<ParametersDefault> {
+    return this.http.get<ParametersDefault>(environment.SERVER_URL + this.adminParametersDefaultUrl).pipe(
       catchError(this.errorResponseService.handleError));
   }
 
-  updateParametersDefault(parameters: ProcessingParametersDefault) : Observable<ProcessingParametersDefault> {
-    return this.http.put<ProcessingParametersDefault>(environment.SERVER_URL + this.adminParametersDefaultUrl, parameters).pipe(
+  updateParametersDefault(parameters: ParametersDefault) : Observable<ParametersDefault> {
+    return this.http.put<ParametersDefault>(environment.SERVER_URL + this.adminParametersDefaultUrl, parameters).pipe(
       catchError(this.errorResponseService.handleError));
   }
 }
 
-export class ProcessingParametersDefault {
+export class ParametersDefault {
   timeDiffGroup: number;
 	resizeWidth: number;
 	resizeHeight: number;

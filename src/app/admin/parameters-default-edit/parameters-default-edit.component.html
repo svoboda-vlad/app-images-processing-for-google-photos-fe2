@@ -1,0 +1,59 @@
+<h2>Edit Parameters (default)</h2>
+<div *ngIf="parametersDefault$ | async as parametersDefault; else loadingOrError">
+  <div class="alert alert-danger" *ngIf="parametersDefaultUpdateError">
+    <strong>Failed to update parametersDefault!</strong> Please check the data.
+  </div>
+  <form class="form" (ngSubmit)="updateParametersDefault()" [formGroup]="parametersDefaultEditForm">
+    <div class="form-group">
+      <label for="timeDiffGroup">Time diff for groups (in sec)</label>
+      <input type="text" class="form-control" formControlName="timeDiffGroup" />
+      <div *ngIf="timeDiffGroup">
+        <div *ngIf="timeDiffGroup.invalid && (timeDiffGroup.dirty || timeDiffGroup.touched)" class="alert alert-danger">
+          <div *ngIf="timeDiffGroup.errors">
+            <div *ngIf="timeDiffGroup.errors.required || timeDiffGroup.errors.min || timeDiffGroup.errors.max">
+              Time diff for groups (in sec) must be between 60 and 86400.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="resizeWidth">Resize width (px)</label>
+      <input type="text" class="form-control" formControlName="resizeWidth" />
+      <div *ngIf="resizeWidth">
+        <div *ngIf="resizeWidth.invalid && (resizeWidth.dirty || resizeWidth.touched)" class="alert alert-danger">
+          <div *ngIf="resizeWidth.errors">
+            <div *ngIf="resizeWidth.errors.required || resizeWidth.errors.min || resizeWidth.errors.max">
+              Resize width (px) must be between 1 and 10000.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="resizeHeight">Resize height (px)</label>
+      <input type="text" class="form-control" formControlName="resizeHeight" />
+      <div *ngIf="resizeHeight">
+        <div *ngIf="resizeHeight.invalid && (resizeHeight.dirty || resizeHeight.touched)" class="alert alert-danger">
+          <div *ngIf="resizeHeight.errors">
+            <div *ngIf="resizeHeight.errors.required || resizeHeight.errors.min || resizeHeight.errors.max">
+              Resize height (px) must be between 1 and 10000.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="parametersDefaultEditForm.invalid">Save</button>
+  </form>
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>

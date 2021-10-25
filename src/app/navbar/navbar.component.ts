@@ -10,6 +10,8 @@ import { LoginService } from '../login/login.service';
 })
 export class NavbarComponent implements OnInit {
 
+  collapsed = true;
+
   constructor(private loginService: LoginService,
     private userService: UserService,
     private router: Router) { }

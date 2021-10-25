@@ -2,47 +2,6 @@
   <h2>Images Processing For Google Photos</h2>
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
-      <span class="navbar-toggler-icon"></span>
-    </button>-->
-    <!-- <div class="collapse navbar-collapse" id="navbarTogglerDemo01">  -->
-    <div>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a routerLink="/" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item" *ngIf="isLoggedIn()">
-          <a routerLink="/parameters" class="nav-link" routerLinkActive="active">Parameters</a>
-        </li>
-        <li class="nav-item" *ngIf="isLoggedIn()">
-          <a routerLink="/user" class="nav-link" routerLinkActive="active">User Info</a>
-        </li>
-        <li class="nav-item" *ngIf="isLoggedIn()">
-          <span *ngIf="isAdmin()">
-            <a routerLink="/admin/parameters-default" class="nav-link" routerLinkActive="active">Admin - Parameters (default)</a>
-          </span>
-        </li>
-        <li class="nav-item" *ngIf="isLoggedIn()">
-          <span *ngIf="isAdmin()">
-            <a routerLink="/admin/users" class="nav-link" routerLinkActive="active">Admin - Users</a>
-          </span>
-        </li>
-        <li class="nav-item">
-          <span [ngSwitch]="isLoggedIn()">
-            <a *ngSwitchCase="false" routerLink="/login" class="nav-link" routerLinkActive="active">Log in</a>
-            <a *ngSwitchDefault (click)="logout()" class="nav-link" routerLinkActive="active">Log out</a>
-          </span>
-        </li>
-        <li class="nav-item" *ngIf="!isLoggedIn()">
-          <a routerLink="/registration-user" class="nav-link" routerLinkActive="active">User Registration</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-  <span class="navbar-brand">Dropdowns in navbar</span>
   <!-- responsive -->
   <button class="navbar-toggler" type="button" (click)="collapsed = !collapsed">
     <span class="navbar-toggler-icon"></span>
@@ -50,36 +9,33 @@
 
   <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item" ngbDropdown>
+      <li class="nav-item">
+        <a routerLink="/" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn()">
+        <a routerLink="/parameters" class="nav-link" routerLinkActive="active">Parameters</a>
+      </li>
+      <li class="nav-item" ngbDropdown *ngIf="isLoggedIn() && isAdmin()">
         <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">
-          Static
+          Administration
         </a>
         <div ngbDropdownMenu class="dropdown-menu">
-          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Action</a>
-          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Another action</a>
-          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Something else here</a>
+          <a ngbDropdownItem routerLink="/admin/parameters-default" routerLinkActive="active">Parameters (default)</a>
+          <a ngbDropdownItem routerLink="/admin/users" routerLinkActive="active">Users</a>
         </div>
       </li>
 
       <li class="nav-item" ngbDropdown>
         <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown2" role="button">
-          Static right
+          User
         </a>
         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
-          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Action</a>
-          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Another action</a>
-          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Something else here</a>
-        </div>
-      </li>
-
-      <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right">
-        <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown3" role="button">
-          Dynamic
-        </a>
-        <div ngbDropdownMenu class="dropdown-menu">
-          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Action</a>
-          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Another action</a>
-          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Something else here</a>
+          <a ngbDropdownItem *ngIf="isLoggedIn()" routerLink="/user" routerLinkActive="active">User Info</a>
+          <span [ngSwitch]="isLoggedIn()">
+            <a ngbDropdownItem *ngSwitchCase="false" routerLink="/login" routerLinkActive="active">Log in</a>
+            <a ngbDropdownItem *ngSwitchDefault (click)="logout()" routerLinkActive="active">Log out</a>
+          </span>
+          <a ngbDropdownItem *ngIf="!isLoggedIn()" routerLink="/registration-user" routerLinkActive="active">User Registration</a>
         </div>
       </li>
     </ul>

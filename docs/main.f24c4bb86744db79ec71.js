@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /vagrant/app-images-processing-for-google-photos-fe/src/main.ts */"zUnb");
+module.exports = __webpack_require__(/*! /home/vlada/eclipse-workspace/app-images-processing-for-google-photos-fe/src/main.ts */"zUnb");
 
 
 /***/ }),

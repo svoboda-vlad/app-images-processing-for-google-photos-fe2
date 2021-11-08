@@ -181,8 +181,8 @@ module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /vagrant/app-images-processing-for-google-photos-fe/src/polyfills.ts */"hN/g");
-module.exports = __webpack_require__(/*! /vagrant/app-images-processing-for-google-photos-fe/node_modules/@angular-devkit/build-angular/src/webpack/jit-polyfills.js */"rZy+");
+__webpack_require__(/*! /home/vlada/eclipse-workspace/app-images-processing-for-google-photos-fe/src/polyfills.ts */"hN/g");
+module.exports = __webpack_require__(/*! /home/vlada/eclipse-workspace/app-images-processing-for-google-photos-fe/node_modules/@angular-devkit/build-angular/src/webpack/jit-polyfills.js */"rZy+");
 
 
 /***/ }),

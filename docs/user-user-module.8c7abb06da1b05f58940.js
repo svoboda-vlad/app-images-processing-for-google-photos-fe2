@@ -157,10 +157,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_detail_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user-detail.component.scss */ "SHHN");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "qCKp");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
-/* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../login/login.service */ "XNvx");
-/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../user/user.service */ "VGjC");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "1kSV");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "qCKp");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../login/login.service */ "XNvx");
+/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../user/user.service */ "VGjC");
+
 
 
 
@@ -171,21 +173,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let UserDetailComponent = class UserDetailComponent {
-    constructor(userService, route, router, loginService) {
+    constructor(userService, route, router, loginService, modalService) {
         this.userService = userService;
         this.route = route;
         this.router = router;
         this.loginService = loginService;
+        this.modalService = modalService;
         this.user$ = null;
         this.error = null;
         this.deleteUserSubscription = null;
         this.deleteError = null;
+        this.closeResult = '';
     }
     ngOnInit() {
         this.user$ = this.userService.getCurrentUser()
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])((err) => {
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["catchError"])((err) => {
             this.router.navigate(['/login']);
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["throwError"])(err);
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["throwError"])(err);
         }));
     }
     ngOnDestroy() {
@@ -201,12 +205,31 @@ let UserDetailComponent = class UserDetailComponent {
             this.router.navigate(['/login']);
         }, () => this.deleteError = true);
     }
+    open(content) {
+        this.modalService.open(content).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+    }
+    getDismissReason(reason) {
+        if (reason === _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ModalDismissReasons"].ESC) {
+            return 'by pressing ESC';
+        }
+        else if (reason === _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ModalDismissReasons"].BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        }
+        else {
+            return `with: ${reason}`;
+        }
+    }
 };
 UserDetailComponent.ctorParameters = () => [
-    { type: _user_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
+    { type: _user_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-    { type: _login_login_service__WEBPACK_IMPORTED_MODULE_7__["LoginService"] }
+    { type: _login_login_service__WEBPACK_IMPORTED_MODULE_8__["LoginService"] },
+    { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"] }
 ];
 UserDetailComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -283,7 +306,7 @@ UserRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h2>User Detail</h2>\n<div *ngIf=\"user$ | async as user; else loadingOrError\">\n  <div class=\"table-responsive-sm\" *ngIf=\"user; else notFound\">\n    <table class=\"table table-sm\">\n      <thead>\n        <tr class=\"table-secondary\">\n          <th scope=\"col\">Name</th>\n          <th scope=\"col\">Value</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <th>Username</th>\n          <td>{{ user.username }}</td>\n        </tr>\n        <tr>\n          <th>Given Name</th>\n          <td>{{ user.givenName }}</td>\n        </tr>\n        <tr>\n          <th>Family Name</th>\n          <td>{{ user.familyName }}</td>\n        </tr>\n        <tr>\n          <th>Last Login</th>\n          <td>{{ user.lastLoginDateTime | date:'yyyy-MM-dd HH:mm' }}</td>\n        </tr>\n        <tr>\n          <th>Previous Login</th>\n          <td>{{ user.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}</td>\n        </tr>\n        <tr>\n          <th>Roles</th>\n          <td><span *ngFor=\"let userRoles of user.userRoles; let i = index\"><span *ngIf=\"i>0\">, </span>{{ userRoles.role.name }}</span></td>\n        </tr>\n      </tbody>\n    </table>\n    <div>\n      <button class=\"btn btn-primary m-1\" routerLink=\"/user/edit\">Edit</button>\n      <button class=\"btn btn-primary m-1\" (click)=\"deleteUser()\">Delete</button>\n    </div>\n  </div>\n  <ng-template #notFound>\n    <div class=\"alert alert-warning\">No record found.</div>\n  </ng-template>\n</div>\n\n<ng-template #loadingOrError>\n  <ng-container *ngIf=\"error; else loading\">\n    <div class=\"alert alert-danger\">{{ error }}</div>\n  </ng-container>\n  <ng-template #loading>\n    <div>Loading ...</div>\n  </ng-template>\n</ng-template>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h2>User Detail</h2>\n<div *ngIf=\"user$ | async as user; else loadingOrError\">\n  <div class=\"table-responsive-sm\" *ngIf=\"user; else notFound\">\n    <table class=\"table table-sm\">\n      <thead>\n        <tr class=\"table-secondary\">\n          <th scope=\"col\">Name</th>\n          <th scope=\"col\">Value</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <th>Username</th>\n          <td>{{ user.username }}</td>\n        </tr>\n        <tr>\n          <th>Given Name</th>\n          <td>{{ user.givenName }}</td>\n        </tr>\n        <tr>\n          <th>Family Name</th>\n          <td>{{ user.familyName }}</td>\n        </tr>\n        <tr>\n          <th>Last Login</th>\n          <td>{{ user.lastLoginDateTime | date:'yyyy-MM-dd HH:mm' }}</td>\n        </tr>\n        <tr>\n          <th>Previous Login</th>\n          <td>{{ user.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}</td>\n        </tr>\n        <tr>\n          <th>Roles</th>\n          <td><span *ngFor=\"let userRoles of user.userRoles; let i = index\"><span *ngIf=\"i>0\">, </span>{{ userRoles.role.name }}</span></td>\n        </tr>\n      </tbody>\n    </table>\n    <div>\n      <button class=\"btn btn-primary m-1\" routerLink=\"/user/edit\">Edit</button>\n      <button class=\"btn btn-primary m-1\" (click)=\"open(content)\">Delete</button>\n    </div>\n  </div>\n  <ng-template #notFound>\n    <div class=\"alert alert-warning\">No record found.</div>\n  </ng-template>\n</div>\n\n<ng-template #loadingOrError>\n  <ng-container *ngIf=\"error; else loading\">\n    <div class=\"alert alert-danger\">{{ error }}</div>\n  </ng-container>\n  <ng-template #loading>\n    <div>Loading ...</div>\n  </ng-template>\n</ng-template>\n\n<ng-template #content let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-basic-title\">Warning</h4>\n  </div>\n  <div class=\"modal-body\">\n        <div>Are you sure you want to delete your account with all your user data?</div>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"modal.close('No')\">No</button>    \n    <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"modal.close('No'); deleteUser()\">Yes</button>\n  </div>\n</ng-template>\n");
 
 /***/ }),
 
@@ -301,4 +324,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=user-user-module.345eaebd3ecfbad2fcf2.js.map
+//# sourceMappingURL=user-user-module.8c7abb06da1b05f58940.js.map

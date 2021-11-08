@@ -37,7 +37,7 @@
     </table>
     <div>
       <button class="btn btn-primary m-1" routerLink="/user/edit">Edit</button>
-      <button class="btn btn-primary m-1" (click)="deleteUser()">Delete</button>
+      <button class="btn btn-primary m-1" (click)="open(content)">Delete</button>
     </div>
   </div>
   <ng-template #notFound>
@@ -52,4 +52,17 @@
   <ng-template #loading>
     <div>Loading ...</div>
   </ng-template>
+</ng-template>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Warning</h4>
+  </div>
+  <div class="modal-body">
+        <div>Are you sure you want to delete your account with all your user data?</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('No')">No</button>    
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('No'); deleteUser()">Yes</button>
+  </div>
 </ng-template>

@@ -1,5 +1,8 @@
 <h2>Parameters</h2>
 <div *ngIf="parameters$ | async as parameters; else loadingOrError">
+  <div class="alert alert-danger" *ngIf="parametersResetToDefaultError">
+    <strong>Failed to reset parameters to default!</strong>
+  </div>
   <div class="table-responsive-sm" *ngIf="parameters; else notFound">
     <table class="table table-sm">
       <thead>
@@ -25,6 +28,7 @@
     </table>
     <div>
       <button class="btn btn-primary m-1" routerLink="edit">Edit</button>
+      <button class="btn btn-primary m-1" (click)="open(content)">Reset to default values</button>      
     </div>
   </div>
   <ng-template #notFound>
@@ -39,4 +43,17 @@
   <ng-template #loading>
     <div>Loading ...</div>
   </ng-template>
+</ng-template>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Warning</h4>
+  </div>
+  <div class="modal-body">
+        <div>Are you sure you want to reset parameters values to default?</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('No')">No</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Yes'); resetToDefault()">Yes</button>
+  </div>
 </ng-template>

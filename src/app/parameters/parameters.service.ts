@@ -10,18 +10,24 @@ import { ErrorResponseService } from '../shared/error-response.service';
 })
 export class ParametersService {
 
-  adminParametersUrl = 'parameters';
+  parametersUrl = 'parameters';
+  parametersResetToDefaultUrl = 'parameters-reset-to-default';
 
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
 
   getParameters() : Observable<Parameters> {
-    return this.http.get<Parameters>(environment.SERVER_URL + this.adminParametersUrl).pipe(
+    return this.http.get<Parameters>(environment.SERVER_URL + this.parametersUrl).pipe(
       catchError(this.errorResponseService.handleError));
   }
 
   updateParameters(parameters: Parameters) : Observable<Parameters> {
-    return this.http.put<Parameters>(environment.SERVER_URL + this.adminParametersUrl, parameters).pipe(
+    return this.http.put<Parameters>(environment.SERVER_URL + this.parametersUrl, parameters).pipe(
+      catchError(this.errorResponseService.handleError));
+  }
+
+  resetToDefault() : Observable<void> {
+    return this.http.get<void>(environment.SERVER_URL + this.parametersResetToDefaultUrl).pipe(
       catchError(this.errorResponseService.handleError));
   }
 }

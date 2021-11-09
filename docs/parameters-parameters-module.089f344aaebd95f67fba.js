@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h2>Parameters</h2>\n<div *ngIf=\"parameters$ | async as parameters; else loadingOrError\">\n  <div class=\"table-responsive-sm\" *ngIf=\"parameters; else notFound\">\n    <table class=\"table table-sm\">\n      <thead>\n        <tr class=\"table-secondary\">\n          <th scope=\"col\">Name</th>\n          <th scope=\"col\">Value</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <th>Time diff for groups (in sec)</th>\n          <td>{{ parameters.timeDiffGroup }}</td>\n        </tr>\n        <tr>\n          <th>Resize width (px)</th>\n          <td>{{ parameters.resizeWidth }}</td>\n        </tr>\n        <tr>\n          <th>Resize height (px)</th>\n          <td>{{ parameters.resizeHeight }}</td>\n        </tr>\n      </tbody>\n    </table>\n    <div>\n      <button class=\"btn btn-primary m-1\" routerLink=\"edit\">Edit</button>\n    </div>\n  </div>\n  <ng-template #notFound>\n    <div class=\"alert alert-warning\">No record found.</div>\n  </ng-template>\n</div>\n\n<ng-template #loadingOrError>\n  <ng-container *ngIf=\"error; else loading\">\n    <div class=\"alert alert-danger\">{{ error }}</div>\n  </ng-container>\n  <ng-template #loading>\n    <div>Loading ...</div>\n  </ng-template>\n</ng-template>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h2>Parameters</h2>\n<div *ngIf=\"parameters$ | async as parameters; else loadingOrError\">\n  <div class=\"alert alert-danger\" *ngIf=\"parametersResetToDefaultError\">\n    <strong>Failed to reset parameters to default!</strong>\n  </div>\n  <div class=\"table-responsive-sm\" *ngIf=\"parameters; else notFound\">\n    <table class=\"table table-sm\">\n      <thead>\n        <tr class=\"table-secondary\">\n          <th scope=\"col\">Name</th>\n          <th scope=\"col\">Value</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <th>Time diff for groups (in sec)</th>\n          <td>{{ parameters.timeDiffGroup }}</td>\n        </tr>\n        <tr>\n          <th>Resize width (px)</th>\n          <td>{{ parameters.resizeWidth }}</td>\n        </tr>\n        <tr>\n          <th>Resize height (px)</th>\n          <td>{{ parameters.resizeHeight }}</td>\n        </tr>\n      </tbody>\n    </table>\n    <div>\n      <button class=\"btn btn-primary m-1\" routerLink=\"edit\">Edit</button>\n      <button class=\"btn btn-primary m-1\" (click)=\"open(content)\">Reset to default values</button>      \n    </div>\n  </div>\n  <ng-template #notFound>\n    <div class=\"alert alert-warning\">No record found.</div>\n  </ng-template>\n</div>\n\n<ng-template #loadingOrError>\n  <ng-container *ngIf=\"error; else loading\">\n    <div class=\"alert alert-danger\">{{ error }}</div>\n  </ng-container>\n  <ng-template #loading>\n    <div>Loading ...</div>\n  </ng-template>\n</ng-template>\n\n<ng-template #content let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\" id=\"modal-basic-title\">Warning</h4>\n  </div>\n  <div class=\"modal-body\">\n        <div>Are you sure you want to reset parameters values to default?</div>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"modal.close('No')\">No</button>\n    <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"modal.close('Yes'); resetToDefault()\">Yes</button>\n  </div>\n</ng-template>\n");
 
 /***/ }),
 
@@ -97,13 +97,17 @@ let ParametersService = class ParametersService {
     constructor(http, errorResponseService) {
         this.http = http;
         this.errorResponseService = errorResponseService;
-        this.adminParametersUrl = 'parameters';
+        this.parametersUrl = 'parameters';
+        this.parametersResetToDefaultUrl = 'parameters-reset-to-default';
     }
     getParameters() {
-        return this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_URL + this.adminParametersUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorResponseService.handleError));
+        return this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_URL + this.parametersUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorResponseService.handleError));
     }
     updateParameters(parameters) {
-        return this.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_URL + this.adminParametersUrl, parameters).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorResponseService.handleError));
+        return this.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_URL + this.parametersUrl, parameters).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorResponseService.handleError));
+    }
+    resetToDefault() {
+        return this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].SERVER_URL + this.parametersResetToDefaultUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorResponseService.handleError));
     }
 };
 ParametersService.ctorParameters = () => [
@@ -141,9 +145,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _raw_loader_parameters_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./parameters.component.html */ "/mw0");
 /* harmony import */ var _parameters_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parameters.component.scss */ "sxN6");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "qCKp");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
-/* harmony import */ var _parameters_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parameters.service */ "Mfku");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "1kSV");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "qCKp");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _parameters_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./parameters.service */ "Mfku");
+
 
 
 
@@ -152,21 +158,55 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ParametersComponent = class ParametersComponent {
-    constructor(parametersService) {
+    constructor(parametersService, modalService) {
         this.parametersService = parametersService;
+        this.modalService = modalService;
         this.parameters$ = null;
         this.error = null;
+        this.closeResult = '';
+        this.parametersResetToDefaultError = false;
     }
     ngOnInit() {
         this.parameters$ = this.parametersService.getParameters()
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(err => {
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(err => {
             this.error = err;
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(err);
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["throwError"])(err);
         }));
+    }
+    open(content) {
+        this.modalService.open(content).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+    }
+    getDismissReason(reason) {
+        if (reason === _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["ModalDismissReasons"].ESC) {
+            return 'by pressing ESC';
+        }
+        else if (reason === _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["ModalDismissReasons"].BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        }
+        else {
+            return `with: ${reason}`;
+        }
+    }
+    resetToDefault() {
+        this.parametersResetToDefaultSubscription = this.parametersService
+            .resetToDefault()
+            .subscribe(() => {
+            this.parametersResetToDefaultError = false;
+            this.ngOnInit();
+        }, () => this.parametersResetToDefaultError = true);
+    }
+    ngOnDestroy() {
+        if (this.parametersResetToDefaultSubscription != null)
+            this.parametersResetToDefaultSubscription.unsubscribe();
     }
 };
 ParametersComponent.ctorParameters = () => [
-    { type: _parameters_service__WEBPACK_IMPORTED_MODULE_6__["ParametersService"] }
+    { type: _parameters_service__WEBPACK_IMPORTED_MODULE_7__["ParametersService"] },
+    { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] }
 ];
 ParametersComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -335,4 +375,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=parameters-parameters-module.97044cdd48eb5bb4ffbf.js.map
+//# sourceMappingURL=parameters-parameters-module.089f344aaebd95f67fba.js.map

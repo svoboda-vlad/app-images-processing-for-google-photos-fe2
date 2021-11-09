@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, Subscription, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ParametersService, Parameters } from './parameters.service';
 
@@ -12,8 +13,12 @@ export class ParametersComponent implements OnInit {
 
   parameters$: Observable<Parameters> | null = null;
   error: Object | null = null;
+  closeResult = '';
+  parametersResetToDefaultSubscription!: Subscription;
+  parametersResetToDefaultError = false;
 
-  constructor(private parametersService: ParametersService) {
+  constructor(private parametersService: ParametersService,
+    private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -26,5 +31,38 @@ export class ParametersComponent implements OnInit {
       );
   }
 
+  open(content: any) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  resetToDefault(): void {
+    this.parametersResetToDefaultSubscription = this.parametersService
+    .resetToDefault()
+      .subscribe(
+        () => {
+          this.parametersResetToDefaultError = false;
+          this.ngOnInit();
+        },
+        () => this.parametersResetToDefaultError = true
+      );    
+  }
+
+  ngOnDestroy() {
+    if (this.parametersResetToDefaultSubscription != null) this.parametersResetToDefaultSubscription.unsubscribe();
+  }  
 }
 

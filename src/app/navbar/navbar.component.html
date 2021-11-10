@@ -13,6 +13,9 @@
         <a routerLink="/" class="nav-link">Home</a>
       </li>
       <li class="nav-item" *ngIf="isLoggedIn()">
+        <a routerLink="/images-processing" class="nav-link" routerLinkActive="active">Images processing</a>
+      </li>      
+      <li class="nav-item" *ngIf="isLoggedIn()">
         <a routerLink="/parameters" class="nav-link" routerLinkActive="active">Parameters</a>
       </li>
       <li class="nav-item" ngbDropdown *ngIf="isLoggedIn() && isAdmin()">

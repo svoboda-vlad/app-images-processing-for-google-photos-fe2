@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErrorResponseService } from '../shared/error-response.service';
+import * as dayjs from 'dayjs';
 
 @Injectable({
   providedIn: 'root'
@@ -57,12 +58,12 @@ export class MediaItemService {
 
 export class MediaItem {
   name: string;
-  dateTime: Date;
+  dateTime: dayjs.Dayjs;
   contentBytes: string | ArrayBuffer;
   contentUrl: string | ArrayBuffer;
   uploadSuccess: boolean = false;
 
-  constructor(name: string, dateTime: Date, contentBytes: string | ArrayBuffer, contentUrl: string | ArrayBuffer) { 
+  constructor(name: string, dateTime: dayjs.Dayjs, contentBytes: string | ArrayBuffer, contentUrl: string | ArrayBuffer) { 
     this.name = name;
     this.dateTime = dateTime;
     this.contentBytes = contentBytes;
@@ -85,15 +86,15 @@ export class MediaItemForGrouping {
 
 export class MediaItemsGroup {
   id: number;
-  startTime: Date;
-  endTime: Date;
+  startTime: dayjs.Dayjs;
+  endTime: dayjs.Dayjs;
   mediaItemsForGrouping: MediaItemForGrouping[];
   name: string;
   albumId?: string;
   show: boolean;
   largePreview: boolean;
 
-  constructor(id: number, startTime: Date, endTime: Date, mediaItemsForGrouping: MediaItemForGrouping[], name: string) {
+  constructor(id: number, startTime: dayjs.Dayjs, endTime: dayjs.Dayjs, mediaItemsForGrouping: MediaItemForGrouping[], name: string) {
     this.id = id;
     this.startTime = startTime;
     this.endTime = endTime;

@@ -13,6 +13,7 @@ export class GoogleLoginService {
   googleLoginUrl = "google-login";
   authorizationHeader = "Authorization";
   jwtKey = "jwt";
+  accessTokenKey = "access_token";
 
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
@@ -34,6 +35,10 @@ export class GoogleLoginService {
   logOut(): void {
     localStorage.removeItem(this.jwtKey);
   }
+
+  getAccessToken(): string | null {
+    return localStorage.getItem(this.accessTokenKey);
+  }  
 
 }
 

@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthInterceptor } from './shared/auth.interceptor';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPicaModule } from '@digitalascetic/ngx-pica';
 
 @NgModule({
   declarations: [
@@ -20,8 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPicaModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -155,7 +155,7 @@
   <div class="card p-3 mb-2 bg-light text-dark my-width mx-auto">
     <div class="card-body">
       <p class="card-text">
-        <button (click)="createAlbumsAndMedia()" class="btn btn-primary mb-2" [disabled]="!user">Create albums
+        <button (click)="createAlbumsAndMedia()" class="btn btn-primary mb-2" [disabled]="!groupsCreated">Create albums
           and upload files to Google Photos</button>
       </p>
       <p class="card-text text-danger" *ngIf="uploadingStatus == 'InProgress'">UPLOADING IN PROGRESS</p>

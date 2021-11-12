@@ -4,11 +4,13 @@ import { NgxPicaErrorInterface, NgxPicaResizeOptionsInterface, NgxPicaService } 
 import { AlbumService } from './album.service';
 import { MediaItem, MediaItemForGrouping, MediaItemService, MediaItemsGroup } from './media-item.service';
 import * as dayjs from 'dayjs';
+import * as customParseFormat from 'dayjs/plugin/customParseFormat';
 import { GoogleLoginService } from '../google-login/google-login.service';
 
 export const timeDiffGroupDefault = 7200;
 export const resizeWidthDefault = 1000;
 export const resizeHeightDefault = 1000;
+dayjs.extend(customParseFormat);
 
 @Component({
   selector: 'ipfgp-images-processing',

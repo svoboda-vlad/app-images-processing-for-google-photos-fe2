@@ -6,6 +6,9 @@ import { MediaItem, MediaItemForGrouping, MediaItemService, MediaItemsGroup } fr
 import * as dayjs from 'dayjs';
 import * as customParseFormat from 'dayjs/plugin/customParseFormat';
 import { GoogleLoginService } from '../google-login/google-login.service';
+import { Observable, throwError } from 'rxjs';
+import { Parameters, ParametersService } from '../parameters/parameters.service';
+import { catchError, map } from 'rxjs/operators';
 
 export const timeDiffGroupDefault = 7200;
 export const resizeWidthDefault = 1000;
@@ -41,17 +44,17 @@ export class ImagesProcessingComponent implements OnInit {
     }
   };
   paramsForm = this.fb.group({
-    timeDiffGroup: [timeDiffGroupDefault, [
+    timeDiffGroup: [null, [
       Validators.required,
       Validators.min(60),
       Validators.max(86400)
     ]],
-    resizeWidth: [resizeWidthDefault, [
+    resizeWidth: [null, [
       Validators.required,
       Validators.min(1),
       Validators.max(10000)
     ]],
-    resizeHeight: [resizeHeightDefault, [
+    resizeHeight: [null, [
       Validators.required,
       Validators.min(1),
       Validators.max(10000)
@@ -60,15 +63,31 @@ export class ImagesProcessingComponent implements OnInit {
   resizeWidth: number = 0;
   resizeHeight: number = 0;
   paramsFormShow: boolean = true;
+  parameters$!: Observable<Parameters>;
+  error!: Object;
 
   constructor(private ngxPicaService: NgxPicaService,
     private fb: FormBuilder,
     private mediaItemService: MediaItemService,
     private albumService: AlbumService,
-    private googleLoginService: GoogleLoginService) { }
+    private googleLoginService: GoogleLoginService,
+    private parametersService: ParametersService) { }
 
   ngOnInit(): void {
-    
+    this.parameters$ = this.parametersService.getParameters().pipe(
+      map(parameters => {
+        this.paramsForm.patchValue({
+          timeDiffGroup: parameters.timeDiffGroup,
+          resizeWidth: parameters.resizeWidth,
+          resizeHeight: parameters.resizeHeight
+        });
+        return parameters;
+      }),
+      catchError(err => {
+        this.error = err;
+        return throwError(err);
+      })
+    )
   }
 
   processFiles(files: any): void {
@@ -80,7 +99,7 @@ export class ImagesProcessingComponent implements OnInit {
     }
   }
 
-  private emptyArrays() : void {
+  private emptyArrays(): void {
     this.mediaItems = [];
     this.mediaItemsForGrouping = [];
     this.mediaItemsGroups = [];
@@ -94,7 +113,7 @@ export class ImagesProcessingComponent implements OnInit {
     this.ngxPicaService.resizeImages(fileList, this.resizeWidth, this.resizeHeight, this.picaOptions).subscribe((file) => {
       this.readFileBytes(file);
     }, (err: NgxPicaErrorInterface) => {
-        throw err.err;
+      throw err.err;
     }, () => {
       this.filesLoaded = true;
     });
@@ -117,7 +136,7 @@ export class ImagesProcessingComponent implements OnInit {
   }
 
   createMediaItem(file: File, readerBytes: FileReader, readerUrl: FileReader): void {
-    this.mediaItems.push(new MediaItem(file.name, dayjs(file.name.replace(/D/g,''), 'YYYYMMDD HHmmss'), readerBytes.result!, readerUrl.result!));
+    this.mediaItems.push(new MediaItem(file.name, dayjs(file.name.replace(/D/g, ''), 'YYYYMMDD HHmmss'), readerBytes.result!, readerUrl.result!));
   }
 
   createGroups(): void {
@@ -169,14 +188,14 @@ export class ImagesProcessingComponent implements OnInit {
       if (i === 0) {
         group = new MediaItemsGroup(id, item.mediaItem.dateTime, item.mediaItem.dateTime, [item], groupName);
         id++;
-      // if not the first file
+        // if not the first file
       } else {
         // if a new group is identified, add current group and create a new group
         if (item.timeDiff > this.timeDiffGroup) {
           this.mediaItemsGroups.push(group);
           group = new MediaItemsGroup(id, item.mediaItem.dateTime, item.mediaItem.dateTime, [item], groupName);
           id++;
-        // if existing group, add the file to the group and update end time
+          // if existing group, add the file to the group and update end time
         } else {
           group.mediaItemsForGrouping.push(item);
           group.endTime = item.mediaItem.dateTime;
@@ -289,7 +308,7 @@ export class ImagesProcessingComponent implements OnInit {
     this.resizeHeight = this.paramsForm.get(['resizeHeight'])!.value;
   }
 
-  private emptyArraysExceptMediaItems() : void {
+  private emptyArraysExceptMediaItems(): void {
     this.mediaItemsForGrouping = [];
     this.mediaItemsGroups = [];
     this.groupsCreated = false;

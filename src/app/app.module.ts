@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthInterceptor } from './shared/auth.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPicaModule } from '@digitalascetic/ngx-pica';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -19,6 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    NgxPicaModule,
     NgbModule
   ],
   providers: [{

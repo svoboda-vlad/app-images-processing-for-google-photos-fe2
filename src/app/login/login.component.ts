@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   logInWithGoogle(): void {
     location.href = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + environment.GOOGLE_CLIENT_ID
-    + "&redirect_uri=" + environment.FRONT_END_URL + "google-login&response_type=id_token%20token&scope=profile&nonce=abcdef";
+    + "&redirect_uri=" + environment.FRONT_END_URL + "google-login&response_type=id_token%20token&scope=profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fphotoslibrary.appendonly&nonce=abcdef";
   }
 
 }

@@ -1,0 +1,182 @@
+<div *ngIf="parameters$ | async as parameters; else loadingOrError">
+  <div class="my-width mx-auto mb-2 p-3">
+    <h3>Parameters
+      <button (click)="changeParamsFormShow()" class="btn btn-primary m-2">
+        {{ paramsFormShow ? 'Hide' : 'Show' }}
+      </button>
+    </h3>
+    <form [formGroup]="paramsForm" *ngIf="paramsFormShow">
+      <div class="form-group row">
+        <label for="timeDiffGroup" class="col-sm col-form-label">Time diff for groups (in sec)</label>
+        <div class="col-sm">
+          <input class="form-control" id="timeDiffGroup" type="text" formControlName="timeDiffGroup" />
+        </div>
+        <div class="card-text text-danger" *ngIf="paramsForm.get(['timeDiffGroup']).errors">
+          Time diff for groups (in sec) must be between 60 and 86400.
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="resizeWidth" class="col-sm col-form-label">Resize width (px)</label>
+        <div class="col-sm">
+          <input class="form-control" id="resizeWidth" type="text" formControlName="resizeWidth" />
+        </div>
+        <div class="card-text text-danger" *ngIf="paramsForm.get(['resizeWidth']).errors">
+          Resize width (px) must be between 1 and 10000.
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="resizeHeight" class="col-sm col-form-label">Resize height (px)</label>
+        <div class="col-sm">
+          <input class="form-control" id="resizeHeight" type="text" formControlName="resizeHeight" />
+        </div>
+        <div class="card-text text-danger" *ngIf="paramsForm.get(['resizeHeight']).errors">
+          Resize height (px) must be between 1 and 10000.
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="card p-3 mb-2 bg-light text-dark my-width mx-auto" *ngIf="paramsForm.status != 'VALID'">
+    <div class="card-text text-danger">
+      Parameters not valid
+    </div>
+  </div>
+
+  <form [formGroup]="inputFilesForm" *ngIf="paramsForm.status == 'VALID'">
+    <div class="form-group my-width mx-auto mb-2 p-3">
+      <label for="inputFiles">Select images for grouping</label>
+      <input class="form-control" id="inputFiles" #file type="file" accept="image/*" (change)="processFiles(file.files)"
+        multiple />
+    </div>
+  </form>
+
+  <div class="card p-3 mb-2 bg-light text-dark my-width mx-auto" *ngIf="filesCount">
+    <div class="card-body">
+      <p class="card-text text-danger" *ngIf="mediaItems.length != filesCount">Resizing in progress
+        ({{ mediaItems.length }} of {{ filesCount }})</p>
+      <p class="card-text text-primary" *ngIf="mediaItems.length == filesCount">Finished: {{ mediaItems.length }} files
+        resized to {{ resizeWidth }}x{{ resizeHeight }}px.</p>
+      <div *ngIf="filesLoaded">
+        <button class="btn btn-primary mb-2" (click)="createGroups()">
+          Create groups
+        </button>
+        <p class="card-text" *ngIf="getMediaItemsCount()">
+          {{ getMediaItemsCount() }} images in {{ mediaItemsGroups.length }} groups
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="getMediaItemsCount()">
+    <h3 class="my-width mx-auto mb-2 p-3">Images in groups</h3>
+
+    <div class="my-width-groups mx-auto mb-2 p-3">
+      <div *ngFor="let group of mediaItemsGroups" class="card border p-3 mb-2">
+        <!-- group header -->
+        <div class="card-header mb-2 p-3">
+          <button (click)="changeShowGroup(group)" class="btn btn-primary m-2">
+            {{ group.show ? 'Hide ' : 'Show ' }} {{ group.mediaItemsForGrouping.length }} images
+          </button>
+          <button *ngIf="group.show" (click)="changeLargePreview(group)" class="btn btn-secondary m-2">{{
+            group.largePreview ? 'Small preview' : 'Large preview' }}</button>
+          <span class="font-weight-bold" #groupName contenteditable
+            (blur)="updateGroupName(group, groupName.textContent)">{{ group.name }}</span>
+          <button (click)="removeGroup(group)" class="btn btn-primary m-2" *ngIf="group.show">Remove group</button>
+        </div>
+
+        <!-- group images -->
+
+        <!-- bootstrap card -->
+        <div *ngIf="!group.largePreview">
+          <div class="card-body group" *ngIf="group.show">
+            <div *ngFor="let item of group.mediaItemsForGrouping">
+
+              <div class="file p-3 mb-2">
+                {{ item.mediaItem.dateTime | date: "HH:mm:ss" }}<br />
+                <img class='small-img' [src]="item.mediaItem.contentUrl" /><br />
+                <button (click)="removeItemFromGroup(group, item)" class="btn btn-primary mb-2">Remove</button>
+                <div>
+                  {{ item.mediaItem.uploadSuccess ? "Uploaded" : "Not uploaded" }}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- bootstrap carousel -->
+        <div *ngIf="group.largePreview" class="carousel-div">
+          <ngb-carousel *ngIf="group.show" [interval]="false">
+            <ng-template ngbSlide *ngFor="let item of group.mediaItemsForGrouping">
+              <div class="carousel-caption">
+                <span class="bg-light text-primary m-2 p-2">{{ item.mediaItem.dateTime | date: "HH:mm:ss" }}
+                  ({{ item.mediaItem.uploadSuccess ? "Uploaded" : "Not uploaded" }})</span>
+                <button (click)="removeItemFromGroup(group, item)" class="btn btn-primary mb-2">Remove</button>
+              </div>
+              <div class="picsum-img-wrapper">
+                <img [src]="item.mediaItem.contentUrl" class="carousel-img d-block w-100">
+              </div>
+            </ng-template>
+          </ngb-carousel>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="mediaItemsGroups.length">
+    <h3 class="my-width mx-auto mb-2 p-3">Groups overview</h3>
+
+    <table class="table table-bordered my-width mx-auto p-3 mb-2">
+      <th>Group</th>
+      <th>Days</th>
+      <th>Album</th>
+      <th>Files</th>
+      <th>Uploaded</th>
+      <th>Not uploaded</th>
+      <tr *ngFor="let group of mediaItemsGroups">
+        <td>{{ group.name }}</td>
+        <td>{{ getDaysDiffFromToday(group.startTime) }}</td>
+        <td>{{ group.albumId ? 'CREATED' : 'not created' }}</td>
+        <td>{{ group.mediaItemsForGrouping.length }}</td>
+        <td>{{ group.getUploadedCount() }}</td>
+        <td>{{ group.mediaItemsForGrouping.length - group.getUploadedCount() }}</td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td>{{ getMediaItemsCount() }}</td>
+        <td>{{ getUploadedCount() }}</td>
+        <td>{{ getMediaItemsCount() - getUploadedCount() }}</td>
+      </tr>
+    </table>
+
+    <h3 class="my-width mx-auto mb-2 p-3">Upload to Google Photos</h3>
+
+    <div class="card p-3 mb-2 bg-light text-dark my-width mx-auto">
+      <div class="card-body">
+        <p class="card-text">
+          <button (click)="createAlbumsAndMedia()" class="btn btn-primary mb-2" [disabled]="!groupsCreated">Create
+            albums
+            and upload files to Google Photos</button>
+        </p>
+        <p class="card-text text-danger" *ngIf="uploadingStatus == 'InProgress'">UPLOADING IN PROGRESS</p>
+        <p class="card-text text-primary" *ngIf="uploadingStatus == 'Success'">UPLOADING SUCCESSFULLY FINISHED</p>
+        <p class="card-text text-danger" *ngIf="uploadingStatus == 'Fail'">UPLOADING FAILED (see the Groups Overview
+          table
+          for details)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>

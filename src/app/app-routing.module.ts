@@ -35,6 +35,10 @@ const routes: Routes = [
   {
     path: 'parameters',
     loadChildren: () => import('./parameters/parameters.module').then(m => m.ParametersModule)
+  },
+  {
+    path: 'images-processing',
+    loadChildren: () => import('./images-processing/images-processing.module').then(m => m.ImagesProcessingModule)
   }
 ];
 

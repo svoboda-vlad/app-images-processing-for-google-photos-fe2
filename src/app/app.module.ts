@@ -9,6 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPicaModule } from '@digitalascetic/ngx-pica';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgxPicaModule } from '@digitalascetic/ngx-pica';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxPicaModule
+    NgxPicaModule,
+    NgbModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

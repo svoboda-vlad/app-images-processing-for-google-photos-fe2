@@ -24,17 +24,19 @@
         </div>
       </li>
 
-      <li class="nav-item" ngbDropdown>
+      <li class="nav-item" ngbDropdown *ngIf="isLoggedIn()">
         <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown2" role="button">User</a>
         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
-          <a ngbDropdownItem *ngIf="isLoggedIn()" routerLink="/user" routerLinkActive="active">User Info</a>
-          <span [ngSwitch]="isLoggedIn()">
-            <a ngbDropdownItem *ngSwitchCase="false" routerLink="/login" routerLinkActive="active">Log in</a>
-            <a ngbDropdownItem *ngSwitchDefault (click)="logout()" routerLinkActive="active">Log out</a>
-          </span>
-          <a ngbDropdownItem *ngIf="!isLoggedIn()" routerLink="/registration-user" routerLinkActive="active">User Registration</a>
+          <a ngbDropdownItem routerLink="/user" routerLinkActive="active">User Info</a>
+          <a ngbDropdownItem (click)="logout()" routerLinkActive="active">Log out</a>
         </div>
       </li>
+      <li class="nav-item" *ngIf="!isLoggedIn()">
+        <a routerLink="/login" class="nav-link" routerLinkActive="active">Log In</a>
+      </li>      
+      <li class="nav-item" *ngIf="!isLoggedIn()">
+        <a routerLink="/registration-user" class="nav-link" routerLinkActive="active">User Registration</a>
+      </li>       
     </ul>
   </div>
 </nav>

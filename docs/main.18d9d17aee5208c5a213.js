@@ -52,7 +52,8 @@ let HomeComponent = class HomeComponent {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])((err) => {
             this.loginService.logOut();
             this.userService.logOut();
-            this.router.navigate(['/login']);
+            this.error = err;
+            // this.router.navigate(['/login']);
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["throwError"])(err);
         }));
     }
@@ -103,7 +104,7 @@ const environment = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3\">\n  <h2>Images Processing For Google Photos</h2>\n</div>\n<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n  <!-- responsive -->\n  <button class=\"navbar-toggler\" type=\"button\" (click)=\"collapsed = !collapsed\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"navbar-collapse\" [class.collapse]=\"collapsed\" id=\"navbarContent\">\n    <ul class=\"navbar-nav ml-auto\">\n      <li class=\"nav-item\">\n        <a routerLink=\"/\" class=\"nav-link\">Home</a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"isLoggedIn()\">\n        <a routerLink=\"/images-processing\" class=\"nav-link\" routerLinkActive=\"active\">Images processing</a>\n      </li>      \n      <li class=\"nav-item\" *ngIf=\"isLoggedIn()\">\n        <a routerLink=\"/parameters\" class=\"nav-link\" routerLinkActive=\"active\">Parameters</a>\n      </li>\n      <li class=\"nav-item\" ngbDropdown *ngIf=\"isLoggedIn() && isAdmin()\">\n        <a class=\"nav-link\" tabindex=\"0\" ngbDropdownToggle id=\"navbarDropdown1\" role=\"button\">\n          Administration\n        </a>\n        <div ngbDropdownMenu class=\"dropdown-menu\">\n          <a ngbDropdownItem routerLink=\"/admin/parameters-default\" routerLinkActive=\"active\">Parameters (default)</a>\n          <a ngbDropdownItem routerLink=\"/admin/users\" routerLinkActive=\"active\">Users</a>\n        </div>\n      </li>\n\n      <li class=\"nav-item\" ngbDropdown>\n        <a class=\"nav-link\" tabindex=\"0\" ngbDropdownToggle id=\"navbarDropdown2\" role=\"button\">\n          User\n        </a>\n        <div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-right\">\n          <a ngbDropdownItem *ngIf=\"isLoggedIn()\" routerLink=\"/user\" routerLinkActive=\"active\">User Info</a>\n          <span [ngSwitch]=\"isLoggedIn()\">\n            <a ngbDropdownItem *ngSwitchCase=\"false\" routerLink=\"/login\" routerLinkActive=\"active\">Log in</a>\n            <a ngbDropdownItem *ngSwitchDefault (click)=\"logout()\" routerLinkActive=\"active\">Log out</a>\n          </span>\n          <a ngbDropdownItem *ngIf=\"!isLoggedIn()\" routerLink=\"/registration-user\" routerLinkActive=\"active\">User Registration</a>\n        </div>\n      </li>\n    </ul>\n  </div>\n</nav>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n  <h2 class=\"text-light\">Images Processing For Google Photos</h2>\n  <!-- responsive -->\n  <button class=\"navbar-toggler\" type=\"button\" (click)=\"collapsed = !collapsed\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"navbar-collapse\" [class.collapse]=\"collapsed\" id=\"navbarContent\">\n    <ul class=\"navbar-nav ml-auto\">\n      <li class=\"nav-item\">\n        <a routerLink=\"/\" class=\"nav-link\">Home</a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"isLoggedIn()\">\n        <a routerLink=\"/images-processing\" class=\"nav-link\" routerLinkActive=\"active\">Images processing</a>\n      </li>      \n      <li class=\"nav-item\" *ngIf=\"isLoggedIn()\">\n        <a routerLink=\"/parameters\" class=\"nav-link\" routerLinkActive=\"active\">Parameters</a>\n      </li>\n      <li class=\"nav-item\" ngbDropdown *ngIf=\"isLoggedIn() && isAdmin()\">\n        <a class=\"nav-link\" tabindex=\"0\" ngbDropdownToggle id=\"navbarDropdown1\" role=\"button\">Administration</a>\n        <div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-right\">\n          <a ngbDropdownItem routerLink=\"/admin/parameters-default\" routerLinkActive=\"active\">Parameters (default)</a>\n          <a ngbDropdownItem routerLink=\"/admin/users\" routerLinkActive=\"active\">Users</a>\n        </div>\n      </li>\n\n      <li class=\"nav-item\" ngbDropdown *ngIf=\"isLoggedIn()\">\n        <a class=\"nav-link\" tabindex=\"0\" ngbDropdownToggle id=\"navbarDropdown2\" role=\"button\">User</a>\n        <div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-right\">\n          <a ngbDropdownItem routerLink=\"/user\" routerLinkActive=\"active\">User Info</a>\n          <a ngbDropdownItem (click)=\"logout()\" routerLinkActive=\"active\">Log out</a>\n        </div>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"!isLoggedIn()\">\n        <a routerLink=\"/login\" class=\"nav-link\" routerLinkActive=\"active\">Log In</a>\n      </li>      \n      <li class=\"nav-item\" *ngIf=\"!isLoggedIn()\">\n        <a routerLink=\"/registration-user\" class=\"nav-link\" routerLinkActive=\"active\">User Registration</a>\n      </li>       \n    </ul>\n  </div>\n</nav>\n");
 
 /***/ }),
 
@@ -214,7 +215,7 @@ ErrorResponseService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h2>Home</h2>\n<div class=\"alert alert-success\" *ngIf=\"currentUser$ | async as currentUser; else loadingOrError\">\n  <div>Logged in as user {{ currentUser.givenName }} {{ currentUser.familyName }} ({{ currentUser.username }}).</div>\n  <div>Previous login {{ currentUser.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}.</div>\n</div>\n\n<ng-template #loadingOrError>\n    <div>Loading ...</div>\n</ng-template>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"alert alert-success\" *ngIf=\"currentUser$ | async as currentUser; else loadingOrError\">\n  <div>Logged in as user {{ currentUser.givenName }} {{ currentUser.familyName }} ({{ currentUser.username }}).</div>\n  <div>Previous login {{ currentUser.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}.</div>\n</div>\n\n<div>\n  <b>Images Processing For Google Photos</b> allows you to:\n  <ul>\n    <li>\n      <span class=\"text-info\">reduce images size</span> - resize your images using <a href=\"https://github.com/digitalascetic/ngx-pica\">@digitalascetic/ngx-pica</a> package (in order to save storage space for Google Photos)\n    </li>\n    <li>\n      <span class=\"text-info\">group images to albums</span> - group your images based on date and time into albums with predefined name\n    </li>\n    <li>\n      <span class=\"text-info\">preview images in albums</span> - view images by album all at once with smaller previews or one by one with larger previews\n    </li>\n    <li>\n      <span class=\"text-info\">rename those albums</span> - change predefined name of albums\n    </li>\n    <li>\n      <span class=\"text-info\">exclude images from albums</span> - remove selected images from albums\n    </li>\n    <li>\n      <span class=\"text-info\">upload albums and images to Google Photos</span> - create new albums on Google Photos and upload your images to the albums\n    </li>\n  </ul>\n</div>\n\n<ng-template #loadingOrError>\n  <ng-container *ngIf=\"error; else loading\">\n    <div class=\"alert alert-secondary\">No user logged in.</div>\n  </ng-container>\n  <ng-template #loading>\n    <div>Loading ...</div>\n  </ng-template>\n</ng-template>");
 
 /***/ }),
 
@@ -362,7 +363,7 @@ class RegistrationUser {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ipfgp-navbar></ipfgp-navbar>\n<div class=\"mb-2 p-3 bg-light\">\n  <div class=\"bg-white mb-2 p-3\">\n    <router-outlet></router-outlet>\n  </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ipfgp-navbar></ipfgp-navbar>\n<div class=\"mb-2 p-3 bg-light\">\n  <div class=\"bg-white mb-2 p-3\">\n    <router-outlet></router-outlet>\n  </div>\n</div>\n<div class=\"mb-2 p-3 bg-light\">\n  <div>Author: Vladimír Svoboda (<a href=\"https://github.com/svoboda-vlad\">GitHub</a>)</div>\n</div>");
 
 /***/ }),
 
@@ -599,7 +600,7 @@ let NavbarComponent = class NavbarComponent {
     logout() {
         this.loginService.logOut();
         this.userService.logOut();
-        this.router.navigate(['/login']);
+        this.router.navigate(['']);
     }
 };
 NavbarComponent.ctorParameters = () => [
@@ -766,4 +767,4 @@ webpackEmptyAsyncContext.id = "zn8P";
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main.564408368853b2a108c2.js.map
+//# sourceMappingURL=main.18d9d17aee5208c5a213.js.map

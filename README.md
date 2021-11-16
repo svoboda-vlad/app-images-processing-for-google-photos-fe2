@@ -1,6 +1,11 @@
 # Images Processing For Google Photos - Front End Angular (app-images-processing-for-google-photos-fe)
 
-GitHub Pages: [https://svoboda-vlad.github.io/app-images-processing-for-google-photos-fe](https://svoboda-vlad.github.io/app-images-processing-for-google-photos-fe)
+Warning: client only. Use REST API from backend [app-images-processing-for-google-photos-be](https://github.com/svoboda-vlad/app-images-processing-for-google-photos-be) project.
+You need to start backend server before starting frontend application.
+
+## Live demo (hosted on GitHub pages)
+
+[https://svoboda-vlad.github.io/app-images-processing-for-google-photos-fe](https://svoboda-vlad.github.io/app-images-processing-for-google-photos-fe)
 
 ## Running the project
 

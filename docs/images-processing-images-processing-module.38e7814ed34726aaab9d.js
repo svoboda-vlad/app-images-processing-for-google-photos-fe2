@@ -220,7 +220,7 @@ let ImagesProcessingComponent = class ImagesProcessingComponent {
     let group;
     let id = 1;
     this.mediaItemsForGrouping.forEach((item, i) => {
-      let groupName = '(new) ' + item.mediaItem.dateTime.format('YYYY-MM-DD') + ' místo (' + item.mediaItem.dateTime.format('dddd H') + 'h)';
+      let groupName = item.mediaItem.dateTime.format('YYYY-MM-DD') + ' místo/place (' + item.mediaItem.dateTime.format('dddd H') + 'h)';
       groupName = this.translateWeekdayNamesToCzech(groupName); // if the first file in the sequence, create a new group
 
       if (i === 0) {
@@ -267,7 +267,7 @@ let ImagesProcessingComponent = class ImagesProcessingComponent {
   }
 
   translateWeekdayNamesToCzech(name) {
-    return name.replace('Monday', 'pondělí').replace('Tuesday', 'úterý').replace('Wednesday', 'středa').replace('Thursday', 'čtvrtek').replace('Friday', 'pátek').replace('Saturday', 'sobota').replace('Sunday', 'neděle');
+    return name.replace('Monday', 'pondělí/Monday').replace('Tuesday', 'úterý/Tuesday').replace('Wednesday', 'středa/Wednesday').replace('Thursday', 'čtvrtek/Thursday').replace('Friday', 'pátek/Friday').replace('Saturday', 'sobota/Saturday').replace('Sunday', 'neděle/Sunday');
   } // async/await + for...of loop to ensure sequential API calls
   // not working with arrays' forEach() method
 
@@ -686,4 +686,4 @@ ImagesProcessingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
 /***/ })
 
 }]);
-//# sourceMappingURL=images-processing-images-processing-module.6d3072e1c4656d7fc0c0.js.map
+//# sourceMappingURL=images-processing-images-processing-module.38e7814ed34726aaab9d.js.map

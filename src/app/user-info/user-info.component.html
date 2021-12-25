@@ -1,4 +1,6 @@
 <div class="alert alert-success" *ngIf="currentUser$ | async as currentUser">
-    <div>Logged in as user {{ currentUser.givenName }} {{ currentUser.familyName }} ({{ currentUser.username }}).</div>
-    <div>Previous login {{ currentUser.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}.</div>
+    <div>Logged in as {{ currentUser.givenName }} {{ currentUser.familyName }} ({{ currentUser.email }}).</div>
+    <div>Previous login {{ currentUser.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}
+        ({{ getDaysDiffFromToday(currentUser.previousLoginDateTime) }} days ago).
+    </div>
 </div>

@@ -53,14 +53,16 @@ export class User {
   previousLoginDateTime: Date;
   givenName: string;
   familyName: string;
+  email: string;
   userRoles: UserRoles[];
 
-  constructor(username: string, lastLoginDateTime: Date, previousLoginDateTime: Date, givenName: string, familyName: string, userRoles: UserRoles[]) {
+  constructor(username: string, lastLoginDateTime: Date, previousLoginDateTime: Date, givenName: string, familyName: string, email: string, userRoles: UserRoles[]) {
       this.username = username;
       this.lastLoginDateTime = lastLoginDateTime;
       this.previousLoginDateTime = previousLoginDateTime;
       this.givenName = givenName;
       this.familyName = familyName;
+      this.email = email;
       this.userRoles = userRoles;
     }
 
@@ -79,19 +81,5 @@ export class Role {
 
   constructor(name: string) {
     this.name = name;
-  }
-}
-
-export class RegistrationUser {
-  username: string;
-  password: string;
-  givenName: string;
-  familyName: string;
-
-  constructor(username: string, password: string, givenName: string, familyName: string) {
-    this.username = username;
-    this.password = password;
-    this.givenName = givenName;
-    this.familyName = familyName;
   }
 }

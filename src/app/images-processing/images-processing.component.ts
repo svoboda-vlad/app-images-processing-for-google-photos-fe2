@@ -9,6 +9,7 @@ import { GoogleLoginService } from '../google-login/google-login.service';
 import { Observable, throwError } from 'rxjs';
 import { Parameters, ParametersService } from '../parameters/parameters.service';
 import { catchError, map } from 'rxjs/operators';
+import { DateUtilService } from '../shared/date-util.service';
 
 export const timeDiffGroupDefault = 7200;
 export const resizeWidthDefault = 1000;
@@ -71,7 +72,9 @@ export class ImagesProcessingComponent implements OnInit {
     private mediaItemService: MediaItemService,
     private albumService: AlbumService,
     private googleLoginService: GoogleLoginService,
-    private parametersService: ParametersService) { }
+    private parametersService: ParametersService,
+    private dateUtilService: DateUtilService
+    ) { }
 
   ngOnInit(): void {
     this.parameters$ = this.parametersService.getParameters().pipe(
@@ -216,9 +219,8 @@ export class ImagesProcessingComponent implements OnInit {
     return uniqueItemsCount;
   }
 
-  getDaysDiffFromToday(groupDate: dayjs.Dayjs, todayDay = dayjs(dayjs().format('YYYY-MM-DD'))): number {
-    const groupDateDay = dayjs(groupDate.format('YYYY-MM-DD'));
-    return groupDateDay.diff(todayDay, 'days');
+  getDaysDiffFromToday(groupDate: dayjs.Dayjs): number {
+    return this.dateUtilService.getDaysDiffFromTodayDayjs(groupDate);
   }
 
   updateGroupName(gr: MediaItemsGroup, newName: string) {

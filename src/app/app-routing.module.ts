@@ -13,10 +13,6 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
-    path: 'registration-user',
-    loadChildren: () => import('./registration-user/registration-user.module').then(m => m.RegistrationUserModule)
-  },
-  {
     path: 'google-login',
     loadChildren: () => import('./google-login/google-login.module').then(m => m.GoogleLoginModule)
   },

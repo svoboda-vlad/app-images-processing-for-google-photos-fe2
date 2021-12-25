@@ -35,11 +35,6 @@ export class UserService {
     this.user = null;
   }
 
-  registerUser(registrationUser: RegistrationUser) : Observable<RegistrationUser> {
-    return this.http.post<RegistrationUser>(environment.SERVER_URL + this.userUrl, registrationUser).pipe(
-      catchError(this.errorResponseService.handleError));
-  }
-
   deleteUser() : Observable<void> {
     return this.http.delete<void>(environment.SERVER_URL + this.userUrl).pipe(
       catchError(this.errorResponseService.handleError));
@@ -56,11 +51,11 @@ export class User {
   username: string;
   lastLoginDateTime: Date;
   previousLoginDateTime: Date;
-  givenName: Date;
-  familyName: Date;
+  givenName: string;
+  familyName: string;
   userRoles: UserRoles[];
 
-  constructor(username: string, lastLoginDateTime: Date, previousLoginDateTime: Date, givenName: Date, familyName: Date, userRoles: UserRoles[]) {
+  constructor(username: string, lastLoginDateTime: Date, previousLoginDateTime: Date, givenName: string, familyName: string, userRoles: UserRoles[]) {
       this.username = username;
       this.lastLoginDateTime = lastLoginDateTime;
       this.previousLoginDateTime = previousLoginDateTime;

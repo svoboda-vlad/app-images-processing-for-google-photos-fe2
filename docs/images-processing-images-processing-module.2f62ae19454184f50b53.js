@@ -29,7 +29,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../login/login.service */ "XNvx");
-/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../user/user.service */ "VGjC");
+/* harmony import */ var _shared_date_util_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../shared/date-util.service */ "ezor");
+/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../user/user.service */ "VGjC");
+
 
 
 
@@ -40,10 +42,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let UserInfoComponent = class UserInfoComponent {
-    constructor(router, userService, loginService) {
+    constructor(router, userService, loginService, dateUtilService) {
         this.router = router;
         this.userService = userService;
         this.loginService = loginService;
+        this.dateUtilService = dateUtilService;
         this.currentUser$ = null;
     }
     ngOnInit() {
@@ -56,11 +59,15 @@ let UserInfoComponent = class UserInfoComponent {
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["throwError"])(err);
         }));
     }
+    getDaysDiffFromToday(comparedDate) {
+        return this.dateUtilService.getDaysDiffFromTodayDate(comparedDate);
+    }
 };
 UserInfoComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-    { type: _user_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
-    { type: _login_login_service__WEBPACK_IMPORTED_MODULE_7__["LoginService"] }
+    { type: _user_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"] },
+    { type: _login_login_service__WEBPACK_IMPORTED_MODULE_7__["LoginService"] },
+    { type: _shared_date_util_service__WEBPACK_IMPORTED_MODULE_8__["DateUtilService"] }
 ];
 UserInfoComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -118,6 +125,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var _parameters_parameters_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../parameters/parameters.service */ "Mfku");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _shared_date_util_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../shared/date-util.service */ "ezor");
+
 
 
 
@@ -138,13 +147,14 @@ const resizeWidthDefault = 1000;
 const resizeHeightDefault = 1000;
 dayjs__WEBPACK_IMPORTED_MODULE_9__["extend"](dayjs_plugin_customParseFormat__WEBPACK_IMPORTED_MODULE_10__);
 let ImagesProcessingComponent = class ImagesProcessingComponent {
-  constructor(ngxPicaService, fb, mediaItemService, albumService, googleLoginService, parametersService) {
+  constructor(ngxPicaService, fb, mediaItemService, albumService, googleLoginService, parametersService, dateUtilService) {
     this.ngxPicaService = ngxPicaService;
     this.fb = fb;
     this.mediaItemService = mediaItemService;
     this.albumService = albumService;
     this.googleLoginService = googleLoginService;
     this.parametersService = parametersService;
+    this.dateUtilService = dateUtilService;
     this.mediaItems = [];
     this.mediaItemsForGrouping = [];
     this.mediaItemsGroups = [];
@@ -316,9 +326,8 @@ let ImagesProcessingComponent = class ImagesProcessingComponent {
     return uniqueItemsCount;
   }
 
-  getDaysDiffFromToday(groupDate, todayDay = dayjs__WEBPACK_IMPORTED_MODULE_9__(dayjs__WEBPACK_IMPORTED_MODULE_9__().format('YYYY-MM-DD'))) {
-    const groupDateDay = dayjs__WEBPACK_IMPORTED_MODULE_9__(groupDate.format('YYYY-MM-DD'));
-    return groupDateDay.diff(todayDay, 'days');
+  getDaysDiffFromToday(groupDate) {
+    return this.dateUtilService.getDaysDiffFromTodayDayjs(groupDate);
   }
 
   updateGroupName(gr, newName) {
@@ -455,6 +464,8 @@ ImagesProcessingComponent.ctorParameters = () => [{
   type: _google_login_google_login_service__WEBPACK_IMPORTED_MODULE_11__["GoogleLoginService"]
 }, {
   type: _parameters_parameters_service__WEBPACK_IMPORTED_MODULE_13__["ParametersService"]
+}, {
+  type: _shared_date_util_service__WEBPACK_IMPORTED_MODULE_15__["DateUtilService"]
 }];
 
 ImagesProcessingComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
@@ -594,6 +605,51 @@ class Album {
 
 /***/ }),
 
+/***/ "ezor":
+/*!*********************************************!*\
+  !*** ./src/app/shared/date-util.service.ts ***!
+  \*********************************************/
+/*! exports provided: DateUtilService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateUtilService", function() { return DateUtilService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dayjs */ "Wgwc");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var dayjs_plugin_customParseFormat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! dayjs/plugin/customParseFormat */ "+QaA");
+/* harmony import */ var dayjs_plugin_customParseFormat__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(dayjs_plugin_customParseFormat__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+dayjs__WEBPACK_IMPORTED_MODULE_2__["extend"](dayjs_plugin_customParseFormat__WEBPACK_IMPORTED_MODULE_3__);
+let DateUtilService = class DateUtilService {
+    constructor() { }
+    getDaysDiffFromTodayDayjs(comparedDate) {
+        const todayDay = dayjs__WEBPACK_IMPORTED_MODULE_2__(dayjs__WEBPACK_IMPORTED_MODULE_2__().format('YYYY-MM-DD'));
+        const comparedDateDay = dayjs__WEBPACK_IMPORTED_MODULE_2__(comparedDate.format('YYYY-MM-DD'));
+        return comparedDateDay.diff(todayDay, 'days');
+    }
+    getDaysDiffFromTodayDate(comparedDate) {
+        const todayDay = dayjs__WEBPACK_IMPORTED_MODULE_2__(dayjs__WEBPACK_IMPORTED_MODULE_2__().format('YYYY-MM-DD'));
+        const comparedDateDay = dayjs__WEBPACK_IMPORTED_MODULE_2__(dayjs__WEBPACK_IMPORTED_MODULE_2__(comparedDate).format('YYYY-MM-DD'));
+        return comparedDateDay.diff(todayDay, 'days');
+    }
+};
+DateUtilService.ctorParameters = () => [];
+DateUtilService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], DateUtilService);
+
+
+
+/***/ }),
+
 /***/ "kArd":
 /*!*********************************************************!*\
   !*** ./src/app/images-processing/media-item.service.ts ***!
@@ -713,7 +769,7 @@ class MediaItemsGroup {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"alert alert-success\" *ngIf=\"currentUser$ | async as currentUser\">\n    <div>Logged in as user {{ currentUser.givenName }} {{ currentUser.familyName }} ({{ currentUser.username }}).</div>\n    <div>Previous login {{ currentUser.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}.</div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"alert alert-success\" *ngIf=\"currentUser$ | async as currentUser\">\n    <div>Logged in as {{ currentUser.givenName }} {{ currentUser.familyName }} ({{ currentUser.email }}).</div>\n    <div>Previous login {{ currentUser.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}\n        ({{ getDaysDiffFromToday(currentUser.previousLoginDateTime) }} days ago).\n    </div>\n</div>");
 
 /***/ }),
 
@@ -778,4 +834,4 @@ ImagesProcessingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
 /***/ })
 
 }]);
-//# sourceMappingURL=images-processing-images-processing-module.528be34df5af593a15e3.js.map
+//# sourceMappingURL=images-processing-images-processing-module.2f62ae19454184f50b53.js.map

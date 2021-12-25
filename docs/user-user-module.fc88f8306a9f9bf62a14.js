@@ -110,7 +110,7 @@ let UserEditComponent = class UserEditComponent {
         }));
     }
     updateUser() {
-        const user = new _user_user_service__WEBPACK_IMPORTED_MODULE_8__["User"](this.userObject.username, this.userObject.lastLoginDateTime, this.userObject.previousLoginDateTime, this.userEditForm.get('givenName').value, this.userEditForm.get('familyName').value, this.userObject.userRoles);
+        const user = new _user_user_service__WEBPACK_IMPORTED_MODULE_8__["User"](this.userObject.username, this.userObject.lastLoginDateTime, this.userObject.previousLoginDateTime, this.userEditForm.get('givenName').value, this.userEditForm.get('familyName').value, this.userObject.email, this.userObject.userRoles);
         this.userUpdateSubscription = this.userService
             .updateUser(user)
             .subscribe(() => {
@@ -324,4 +324,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=user-user-module.08eee282c2c3a13a7751.js.map
+//# sourceMappingURL=user-user-module.fc88f8306a9f9bf62a14.js.map

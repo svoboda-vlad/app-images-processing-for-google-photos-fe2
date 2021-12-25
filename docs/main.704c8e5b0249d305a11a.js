@@ -229,7 +229,7 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 /*!**************************************!*\
   !*** ./src/app/user/user.service.ts ***!
   \**************************************/
-/*! exports provided: UserService, User, UserRoles, Role, RegistrationUser */
+/*! exports provided: UserService, User, UserRoles, Role */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -238,7 +238,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserRoles", function() { return UserRoles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Role", function() { return Role; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegistrationUser", function() { return RegistrationUser; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
@@ -291,12 +290,13 @@ UserService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 ], UserService);
 
 class User {
-    constructor(username, lastLoginDateTime, previousLoginDateTime, givenName, familyName, userRoles) {
+    constructor(username, lastLoginDateTime, previousLoginDateTime, givenName, familyName, email, userRoles) {
         this.username = username;
         this.lastLoginDateTime = lastLoginDateTime;
         this.previousLoginDateTime = previousLoginDateTime;
         this.givenName = givenName;
         this.familyName = familyName;
+        this.email = email;
         this.userRoles = userRoles;
     }
 }
@@ -308,14 +308,6 @@ class UserRoles {
 class Role {
     constructor(name) {
         this.name = name;
-    }
-}
-class RegistrationUser {
-    constructor(username, password, givenName, familyName) {
-        this.username = username;
-        this.password = password;
-        this.givenName = givenName;
-        this.familyName = familyName;
     }
 }
 
@@ -731,4 +723,4 @@ webpackEmptyAsyncContext.id = "zn8P";
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main.7c94c9aebf9c7939aea0.js.map
+//# sourceMappingURL=main.704c8e5b0249d305a11a.js.map

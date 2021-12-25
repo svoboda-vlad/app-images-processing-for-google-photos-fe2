@@ -40,23 +40,18 @@ export class UserService {
       catchError(this.errorResponseService.handleError));
   }
 
-  updateUser(user: User) : Observable<User> {
-    return this.http.put<User>(environment.SERVER_URL + this.userUrl, user).pipe(
-      catchError(this.errorResponseService.handleError));
-  }
-
 }
 
 export class User {
   username: string;
+  email: string;
   lastLoginDateTime: Date;
   previousLoginDateTime: Date;
   givenName: string;
   familyName: string;
-  email: string;
   userRoles: UserRoles[];
 
-  constructor(username: string, lastLoginDateTime: Date, previousLoginDateTime: Date, givenName: string, familyName: string, email: string, userRoles: UserRoles[]) {
+  constructor(username: string, email: string, lastLoginDateTime: Date, previousLoginDateTime: Date, givenName: string, familyName: string, userRoles: UserRoles[]) {
       this.username = username;
       this.lastLoginDateTime = lastLoginDateTime;
       this.previousLoginDateTime = previousLoginDateTime;

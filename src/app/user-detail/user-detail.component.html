@@ -14,6 +14,10 @@
           <td>{{ user.username }}</td>
         </tr>
         <tr>
+          <th>E-mail</th>
+          <td>{{ user.email }}</td>
+        </tr>        
+        <tr>
           <th>Given Name</th>
           <td>{{ user.givenName }}</td>
         </tr>
@@ -36,7 +40,6 @@
       </tbody>
     </table>
     <div>
-      <button class="btn btn-primary m-1" routerLink="/user/edit">Edit</button>
       <button class="btn btn-primary m-1" (click)="open(content)">Delete</button>
     </div>
   </div>

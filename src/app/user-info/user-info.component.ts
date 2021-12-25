@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LoginService } from '../login/login.service';
+import { DateUtilService } from '../shared/date-util.service';
 import { User, UserService } from '../user/user.service';
 
 @Component({
@@ -15,7 +16,10 @@ export class UserInfoComponent implements OnInit {
   currentUser$: Observable<User> | null = null;
   error!: Object;
 
-  constructor(private router: Router, private userService: UserService, private loginService: LoginService) { }
+  constructor(private router: Router, 
+    private userService: UserService, 
+    private loginService: LoginService,
+    private dateUtilService: DateUtilService) { }
 
   ngOnInit(): void {
     this.currentUser$ = this.userService.getCurrentUser()
@@ -28,6 +32,10 @@ export class UserInfoComponent implements OnInit {
           return throwError(err);
         })
       );
+  }
+
+  getDaysDiffFromToday(comparedDate: Date): number {
+    return this.dateUtilService.getDaysDiffFromTodayDate(comparedDate);
   }
 
 }

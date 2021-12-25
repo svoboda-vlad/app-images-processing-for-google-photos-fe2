@@ -52,6 +52,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       this.userObject.previousLoginDateTime,
       this.userEditForm.get('givenName')!.value,
       this.userEditForm.get('familyName')!.value,
+      this.userObject.email,
       this.userObject.userRoles
     );
     this.userUpdateSubscription = this.userService

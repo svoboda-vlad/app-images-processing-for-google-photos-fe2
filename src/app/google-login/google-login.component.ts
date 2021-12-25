@@ -38,7 +38,7 @@ export class GoogleLoginComponent implements OnInit {
         concatMap(
           () => this.userService.getCurrentUser().pipe(
             map(() => {
-              this.router.navigate(['']);
+              this.router.navigate(['images-processing']);
              })
              )
           ),

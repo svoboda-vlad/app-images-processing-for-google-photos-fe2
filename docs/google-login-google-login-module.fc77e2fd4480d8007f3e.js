@@ -149,7 +149,7 @@ let GoogleLoginComponent = class GoogleLoginComponent {
         this.googleLogin$ = this.googleLoginService
             .logIn(idTokenGoogle)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["concatMap"])(() => this.userService.getCurrentUser().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(() => {
-            this.router.navigate(['']);
+            this.router.navigate(['images-processing']);
         }))), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(err => {
             this.error = err;
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["throwError"])(err);
@@ -174,4 +174,4 @@ GoogleLoginComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])(
 /***/ })
 
 }]);
-//# sourceMappingURL=google-login-google-login-module.481323c645920871844b.js.map
+//# sourceMappingURL=google-login-google-login-module.fc77e2fd4480d8007f3e.js.map

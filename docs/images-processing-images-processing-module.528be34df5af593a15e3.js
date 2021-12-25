@@ -11,6 +11,69 @@
 
 /***/ }),
 
+/***/ "0aH0":
+/*!**************************************************!*\
+  !*** ./src/app/user-info/user-info.component.ts ***!
+  \**************************************************/
+/*! exports provided: UserInfoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserInfoComponent", function() { return UserInfoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _raw_loader_user_info_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./user-info.component.html */ "ksfC");
+/* harmony import */ var _user_info_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user-info.component.scss */ "pZJy");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "qCKp");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../login/login.service */ "XNvx");
+/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../user/user.service */ "VGjC");
+
+
+
+
+
+
+
+
+
+let UserInfoComponent = class UserInfoComponent {
+    constructor(router, userService, loginService) {
+        this.router = router;
+        this.userService = userService;
+        this.loginService = loginService;
+        this.currentUser$ = null;
+    }
+    ngOnInit() {
+        this.currentUser$ = this.userService.getCurrentUser()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])((err) => {
+            this.loginService.logOut();
+            this.userService.logOut();
+            this.error = err;
+            // this.router.navigate(['/login']);
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["throwError"])(err);
+        }));
+    }
+};
+UserInfoComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
+    { type: _user_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
+    { type: _login_login_service__WEBPACK_IMPORTED_MODULE_7__["LoginService"] }
+];
+UserInfoComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'ipfgp-user-info',
+        template: _raw_loader_user_info_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_user_info_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
+    })
+], UserInfoComponent);
+
+
+
+/***/ }),
+
 /***/ "AyyP":
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/images-processing/images-processing.component.html ***!
@@ -20,7 +83,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"parameters$ | async as parameters; else loadingOrError\">\n  <div class=\"my-width mx-auto mb-2 p-3\">\n    <h3>Parameters\n      <button (click)=\"changeParamsFormShow()\" class=\"btn btn-primary m-2\">\n        {{ paramsFormShow ? 'Hide' : 'Show' }}\n      </button>\n    </h3>\n    <form [formGroup]=\"paramsForm\" *ngIf=\"paramsFormShow\">\n      <div class=\"form-group row\">\n        <label for=\"timeDiffGroup\" class=\"col-sm col-form-label\">Time diff for groups (in sec)</label>\n        <div class=\"col-sm\">\n          <input class=\"form-control\" id=\"timeDiffGroup\" type=\"text\" formControlName=\"timeDiffGroup\" />\n        </div>\n        <div class=\"card-text text-danger\" *ngIf=\"paramsForm.get(['timeDiffGroup']).errors\">\n          Time diff for groups (in sec) must be between 60 and 86400.\n        </div>\n      </div>\n      <div class=\"form-group row\">\n        <label for=\"resizeWidth\" class=\"col-sm col-form-label\">Resize width (px)</label>\n        <div class=\"col-sm\">\n          <input class=\"form-control\" id=\"resizeWidth\" type=\"text\" formControlName=\"resizeWidth\" />\n        </div>\n        <div class=\"card-text text-danger\" *ngIf=\"paramsForm.get(['resizeWidth']).errors\">\n          Resize width (px) must be between 1 and 10000.\n        </div>\n      </div>\n      <div class=\"form-group row\">\n        <label for=\"resizeHeight\" class=\"col-sm col-form-label\">Resize height (px)</label>\n        <div class=\"col-sm\">\n          <input class=\"form-control\" id=\"resizeHeight\" type=\"text\" formControlName=\"resizeHeight\" />\n        </div>\n        <div class=\"card-text text-danger\" *ngIf=\"paramsForm.get(['resizeHeight']).errors\">\n          Resize height (px) must be between 1 and 10000.\n        </div>\n      </div>\n    </form>\n  </div>\n\n  <div class=\"card p-3 mb-2 bg-light text-dark my-width mx-auto\" *ngIf=\"paramsForm.status != 'VALID'\">\n    <div class=\"card-text text-danger\">\n      Parameters not valid\n    </div>\n  </div>\n\n  <div class=\"card p-3 mb-2 bg-light text-dark my-width mx-auto\">\n    <form [formGroup]=\"inputFilesForm\" *ngIf=\"paramsForm.status == 'VALID'\">\n      <div class=\"form-group my-width mx-auto mb-2 p-3\">\n        <label for=\"inputFiles\">Select images for processing</label>\n        <input class=\"form-control\" id=\"inputFiles\" #file type=\"file\" accept=\"image/*\"\n          (change)=\"processFiles(file.files)\" multiple />\n        <small class=\"form-text text-muted\">\n          <div>Accepted file types: .jpg</div>\n          <div>Accepted file name formats (examples):</div>\n          <div>20210924_133734.jpg</div>\n          <div>IMG_20210924_133734_1.jpg</div>\n          <div>WP_20210924_13_37_34_Pro.jpg</div>\n        </small>\n      </div>\n    </form>\n  </div>\n\n  <div class=\"card p-3 mb-2 bg-light text-dark my-width mx-auto\" *ngIf=\"filesCount\">\n    <div class=\"card-body\">\n      <p class=\"card-text text-danger\" *ngIf=\"mediaItems.length != filesCount\">Resizing in progress\n        ({{ mediaItems.length }} of {{ filesCount }})</p>\n      <p class=\"card-text text-primary\" *ngIf=\"mediaItems.length == filesCount\">Finished: {{ mediaItems.length }} files\n        resized to {{ resizeWidth }}x{{ resizeHeight }}px.</p>\n      <div *ngIf=\"filesLoaded\">\n        <button class=\"btn btn-primary mb-2\" (click)=\"createGroups()\">\n          Create groups\n        </button>\n        <p class=\"card-text\" *ngIf=\"getMediaItemsCount()\">\n          {{ getMediaItemsCount() }} images in {{ mediaItemsGroups.length }} groups\n        </p>\n      </div>\n    </div>\n  </div>\n\n  <div *ngIf=\"getMediaItemsCount()\">\n    <h3 class=\"my-width mx-auto mb-2 p-3\">Images in groups</h3>\n\n    <div class=\"my-width-groups mx-auto mb-2 p-3\">\n      <div *ngFor=\"let group of mediaItemsGroups\" class=\"card border p-3 mb-2\">\n        <!-- group header -->\n        <div class=\"card-header mb-2 p-3\">\n          <button (click)=\"changeShowGroup(group)\" class=\"btn btn-primary m-2\">\n            {{ group.show ? 'Hide ' : 'Show ' }} {{ group.mediaItemsForGrouping.length }} images\n          </button>\n          <button *ngIf=\"group.show\" (click)=\"changeLargePreview(group)\" class=\"btn btn-secondary m-2\">{{\n            group.largePreview ? 'Small preview' : 'Large preview' }}</button>\n          <span class=\"font-weight-bold\" #groupName contenteditable\n            (blur)=\"updateGroupName(group, groupName.textContent)\">{{ group.name }}</span>\n          <button (click)=\"removeGroup(group)\" class=\"btn btn-primary m-2\" *ngIf=\"group.show\">Remove group</button>\n        </div>\n\n        <!-- group images -->\n\n        <!-- bootstrap card -->\n        <div *ngIf=\"!group.largePreview\">\n          <div class=\"card-body group\" *ngIf=\"group.show\">\n            <div *ngFor=\"let item of group.mediaItemsForGrouping\">\n\n              <div class=\"file p-3 mb-2\">\n                {{ item.mediaItem.dateTime | date: \"HH:mm:ss\" }}<br />\n                <img class='small-img' [src]=\"item.mediaItem.contentUrl\" /><br />\n                <button (click)=\"removeItemFromGroup(group, item)\" class=\"btn btn-primary mb-2\">Remove</button>\n                <div>\n                  {{ item.mediaItem.uploadSuccess ? \"Uploaded\" : \"Not uploaded\" }}\n                </div>\n              </div>\n\n            </div>\n          </div>\n        </div>\n\n        <!-- bootstrap carousel -->\n        <div *ngIf=\"group.largePreview\" class=\"carousel-div\">\n          <ngb-carousel *ngIf=\"group.show\" [interval]=\"false\">\n            <ng-template ngbSlide *ngFor=\"let item of group.mediaItemsForGrouping\">\n              <div class=\"carousel-caption\">\n                <span class=\"bg-light text-primary m-2 p-2\">{{ item.mediaItem.dateTime | date: \"HH:mm:ss\" }}\n                  ({{ item.mediaItem.uploadSuccess ? \"Uploaded\" : \"Not uploaded\" }})</span>\n                <button (click)=\"removeItemFromGroup(group, item)\" class=\"btn btn-primary mb-2\">Remove</button>\n              </div>\n              <div class=\"picsum-img-wrapper\">\n                <img [src]=\"item.mediaItem.contentUrl\" class=\"carousel-img d-block w-100\">\n              </div>\n            </ng-template>\n          </ngb-carousel>\n        </div>\n\n      </div>\n    </div>\n\n  </div>\n\n  <div *ngIf=\"mediaItemsGroups.length\">\n    <h3 class=\"my-width mx-auto mb-2 p-3\">Groups overview</h3>\n\n    <table class=\"table table-bordered my-width mx-auto p-3 mb-2\">\n      <th>Group</th>\n      <th>Days</th>\n      <th>Album</th>\n      <th>Files</th>\n      <th>Uploaded</th>\n      <th>Not uploaded</th>\n      <tr *ngFor=\"let group of mediaItemsGroups\">\n        <td>{{ group.name }}</td>\n        <td>{{ getDaysDiffFromToday(group.startTime) }}</td>\n        <td>{{ group.albumId ? 'CREATED' : 'not created' }}</td>\n        <td>{{ group.mediaItemsForGrouping.length }}</td>\n        <td>{{ group.getUploadedCount() }}</td>\n        <td>{{ group.mediaItemsForGrouping.length - group.getUploadedCount() }}</td>\n      </tr>\n      <tr>\n        <td>Total</td>\n        <td></td>\n        <td></td>\n        <td>{{ getMediaItemsCount() }}</td>\n        <td>{{ getUploadedCount() }}</td>\n        <td>{{ getMediaItemsCount() - getUploadedCount() }}</td>\n      </tr>\n    </table>\n\n    <h3 class=\"my-width mx-auto mb-2 p-3\">Upload to Google Photos</h3>\n\n    <div class=\"card p-3 mb-2 bg-light text-dark my-width mx-auto\">\n      <div class=\"card-body\">\n        <p class=\"card-text\">\n          <button (click)=\"createAlbumsAndMedia()\" class=\"btn btn-primary mb-2\" [disabled]=\"!groupsCreated\">Create\n            albums\n            and upload files to Google Photos</button>\n        </p>\n        <p class=\"card-text text-danger\" *ngIf=\"uploadingStatus == 'InProgress'\">UPLOADING IN PROGRESS</p>\n        <p class=\"card-text text-primary\" *ngIf=\"uploadingStatus == 'Success'\">UPLOADING SUCCESSFULLY FINISHED</p>\n        <p class=\"card-text text-danger\" *ngIf=\"uploadingStatus == 'Fail'\">UPLOADING FAILED (see the Groups Overview\n          table\n          for details)</p>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loadingOrError>\n  <ng-container *ngIf=\"error; else loading\">\n    <div class=\"alert alert-danger\">{{ error }}</div>\n  </ng-container>\n  <ng-template #loading>\n    <div>Loading ...</div>\n  </ng-template>\n</ng-template>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ipfgp-user-info></ipfgp-user-info>\n<div *ngIf=\"parameters$ | async as parameters; else loadingOrError\">\n  <div class=\"my-width mx-auto mb-2 p-3\">\n    <h3>Parameters\n      <button (click)=\"changeParamsFormShow()\" class=\"btn btn-primary m-2\">\n        {{ paramsFormShow ? 'Hide' : 'Show' }}\n      </button>\n    </h3>\n    <form [formGroup]=\"paramsForm\" *ngIf=\"paramsFormShow\">\n      <div class=\"form-group row\">\n        <label for=\"timeDiffGroup\" class=\"col-sm col-form-label\">Time diff for groups (in sec)</label>\n        <div class=\"col-sm\">\n          <input class=\"form-control\" id=\"timeDiffGroup\" type=\"text\" formControlName=\"timeDiffGroup\" />\n        </div>\n        <div class=\"card-text text-danger\" *ngIf=\"paramsForm.get(['timeDiffGroup']).errors\">\n          Time diff for groups (in sec) must be between 60 and 86400.\n        </div>\n      </div>\n      <div class=\"form-group row\">\n        <label for=\"resizeWidth\" class=\"col-sm col-form-label\">Resize width (px)</label>\n        <div class=\"col-sm\">\n          <input class=\"form-control\" id=\"resizeWidth\" type=\"text\" formControlName=\"resizeWidth\" />\n        </div>\n        <div class=\"card-text text-danger\" *ngIf=\"paramsForm.get(['resizeWidth']).errors\">\n          Resize width (px) must be between 1 and 10000.\n        </div>\n      </div>\n      <div class=\"form-group row\">\n        <label for=\"resizeHeight\" class=\"col-sm col-form-label\">Resize height (px)</label>\n        <div class=\"col-sm\">\n          <input class=\"form-control\" id=\"resizeHeight\" type=\"text\" formControlName=\"resizeHeight\" />\n        </div>\n        <div class=\"card-text text-danger\" *ngIf=\"paramsForm.get(['resizeHeight']).errors\">\n          Resize height (px) must be between 1 and 10000.\n        </div>\n      </div>\n    </form>\n  </div>\n\n  <div class=\"card p-3 mb-2 bg-light text-dark my-width mx-auto\" *ngIf=\"paramsForm.status != 'VALID'\">\n    <div class=\"card-text text-danger\">\n      Parameters not valid\n    </div>\n  </div>\n\n  <div class=\"card p-3 mb-2 bg-light text-dark my-width mx-auto\">\n    <form [formGroup]=\"inputFilesForm\" *ngIf=\"paramsForm.status == 'VALID'\">\n      <div class=\"form-group my-width mx-auto mb-2 p-3\">\n        <label for=\"inputFiles\">Select images for processing</label>\n        <input class=\"form-control\" id=\"inputFiles\" #file type=\"file\" accept=\"image/*\"\n          (change)=\"processFiles(file.files)\" multiple />\n        <small class=\"form-text text-muted\">\n          <div>Accepted file types: .jpg</div>\n          <div>Accepted file name formats (examples):</div>\n          <div>20210924_133734.jpg</div>\n          <div>IMG_20210924_133734_1.jpg</div>\n          <div>WP_20210924_13_37_34_Pro.jpg</div>\n        </small>\n      </div>\n    </form>\n  </div>\n\n  <div class=\"card p-3 mb-2 bg-light text-dark my-width mx-auto\" *ngIf=\"filesCount\">\n    <div class=\"card-body\">\n      <p class=\"card-text text-danger\" *ngIf=\"mediaItems.length != filesCount\">Resizing in progress\n        ({{ mediaItems.length }} of {{ filesCount }})</p>\n      <p class=\"card-text text-primary\" *ngIf=\"mediaItems.length == filesCount\">Finished: {{ mediaItems.length }} files\n        resized to {{ resizeWidth }}x{{ resizeHeight }}px.</p>\n      <div *ngIf=\"filesLoaded\">\n        <button class=\"btn btn-primary mb-2\" (click)=\"createGroups()\">\n          Create groups\n        </button>\n        <p class=\"card-text\" *ngIf=\"getMediaItemsCount()\">\n          {{ getMediaItemsCount() }} images in {{ mediaItemsGroups.length }} groups\n        </p>\n      </div>\n    </div>\n  </div>\n\n  <div *ngIf=\"getMediaItemsCount()\">\n    <h3 class=\"my-width mx-auto mb-2 p-3\">Images in groups</h3>\n\n    <div class=\"my-width-groups mx-auto mb-2 p-3\">\n      <div *ngFor=\"let group of mediaItemsGroups\" class=\"card border p-3 mb-2\">\n        <!-- group header -->\n        <div class=\"card-header mb-2 p-3\">\n          <button (click)=\"changeShowGroup(group)\" class=\"btn btn-primary m-2\">\n            {{ group.show ? 'Hide ' : 'Show ' }} {{ group.mediaItemsForGrouping.length }} images\n          </button>\n          <button *ngIf=\"group.show\" (click)=\"changeLargePreview(group)\" class=\"btn btn-secondary m-2\">{{\n            group.largePreview ? 'Small preview' : 'Large preview' }}</button>\n          <span class=\"font-weight-bold\" #groupName contenteditable\n            (blur)=\"updateGroupName(group, groupName.textContent)\">{{ group.name }}</span>\n          <button (click)=\"removeGroup(group)\" class=\"btn btn-primary m-2\" *ngIf=\"group.show\">Remove group</button>\n        </div>\n\n        <!-- group images -->\n\n        <!-- bootstrap card -->\n        <div *ngIf=\"!group.largePreview\">\n          <div class=\"card-body group\" *ngIf=\"group.show\">\n            <div *ngFor=\"let item of group.mediaItemsForGrouping\">\n\n              <div class=\"file p-3 mb-2\">\n                {{ item.mediaItem.dateTime | date: \"HH:mm:ss\" }}<br />\n                <img class='small-img' [src]=\"item.mediaItem.contentUrl\" /><br />\n                <button (click)=\"removeItemFromGroup(group, item)\" class=\"btn btn-primary mb-2\">Remove</button>\n                <div>\n                  {{ item.mediaItem.uploadSuccess ? \"Uploaded\" : \"Not uploaded\" }}\n                </div>\n              </div>\n\n            </div>\n          </div>\n        </div>\n\n        <!-- bootstrap carousel -->\n        <div *ngIf=\"group.largePreview\" class=\"carousel-div\">\n          <ngb-carousel *ngIf=\"group.show\" [interval]=\"false\">\n            <ng-template ngbSlide *ngFor=\"let item of group.mediaItemsForGrouping\">\n              <div class=\"carousel-caption\">\n                <span class=\"bg-light text-primary m-2 p-2\">{{ item.mediaItem.dateTime | date: \"HH:mm:ss\" }}\n                  ({{ item.mediaItem.uploadSuccess ? \"Uploaded\" : \"Not uploaded\" }})</span>\n                <button (click)=\"removeItemFromGroup(group, item)\" class=\"btn btn-primary mb-2\">Remove</button>\n              </div>\n              <div class=\"picsum-img-wrapper\">\n                <img [src]=\"item.mediaItem.contentUrl\" class=\"carousel-img d-block w-100\">\n              </div>\n            </ng-template>\n          </ngb-carousel>\n        </div>\n\n      </div>\n    </div>\n\n  </div>\n\n  <div *ngIf=\"mediaItemsGroups.length\">\n    <h3 class=\"my-width mx-auto mb-2 p-3\">Groups overview</h3>\n\n    <table class=\"table table-bordered my-width mx-auto p-3 mb-2\">\n      <th>Group</th>\n      <th>Days</th>\n      <th>Album</th>\n      <th>Files</th>\n      <th>Uploaded</th>\n      <th>Not uploaded</th>\n      <tr *ngFor=\"let group of mediaItemsGroups\">\n        <td>{{ group.name }}</td>\n        <td>{{ getDaysDiffFromToday(group.startTime) }}</td>\n        <td>{{ group.albumId ? 'CREATED' : 'not created' }}</td>\n        <td>{{ group.mediaItemsForGrouping.length }}</td>\n        <td>{{ group.getUploadedCount() }}</td>\n        <td>{{ group.mediaItemsForGrouping.length - group.getUploadedCount() }}</td>\n      </tr>\n      <tr>\n        <td>Total</td>\n        <td></td>\n        <td></td>\n        <td>{{ getMediaItemsCount() }}</td>\n        <td>{{ getUploadedCount() }}</td>\n        <td>{{ getMediaItemsCount() - getUploadedCount() }}</td>\n      </tr>\n    </table>\n\n    <h3 class=\"my-width mx-auto mb-2 p-3\">Upload to Google Photos</h3>\n\n    <div class=\"card p-3 mb-2 bg-light text-dark my-width mx-auto\">\n      <div class=\"card-body\">\n        <p class=\"card-text\">\n          <button (click)=\"createAlbumsAndMedia()\" class=\"btn btn-primary mb-2\" [disabled]=\"!groupsCreated\">Create\n            albums\n            and upload files to Google Photos</button>\n        </p>\n        <p class=\"card-text text-danger\" *ngIf=\"uploadingStatus == 'InProgress'\">UPLOADING IN PROGRESS</p>\n        <p class=\"card-text text-primary\" *ngIf=\"uploadingStatus == 'Success'\">UPLOADING SUCCESSFULLY FINISHED</p>\n        <p class=\"card-text text-danger\" *ngIf=\"uploadingStatus == 'Fail'\">UPLOADING FAILED (see the Groups Overview\n          table\n          for details)</p>\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #loadingOrError>\n  <ng-container *ngIf=\"error; else loading\">\n    <div class=\"alert alert-danger\">{{ error }}</div>\n  </ng-container>\n  <ng-template #loading>\n    <div>Loading ...</div>\n  </ng-template>\n</ng-template>");
 
 /***/ }),
 
@@ -641,6 +704,32 @@ class MediaItemsGroup {
 
 /***/ }),
 
+/***/ "ksfC":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/user-info/user-info.component.html ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"alert alert-success\" *ngIf=\"currentUser$ | async as currentUser\">\n    <div>Logged in as user {{ currentUser.givenName }} {{ currentUser.familyName }} ({{ currentUser.username }}).</div>\n    <div>Previous login {{ currentUser.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}.</div>\n</div>");
+
+/***/ }),
+
+/***/ "pZJy":
+/*!****************************************************!*\
+  !*** ./src/app/user-info/user-info.component.scss ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ1c2VyLWluZm8uY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
 /***/ "qntr":
 /*!***************************************************************!*\
   !*** ./src/app/images-processing/images-processing.module.ts ***!
@@ -658,6 +747,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_processing_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./images-processing.component */ "C3mq");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "1kSV");
+/* harmony import */ var _user_info_user_info_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../user-info/user-info.component */ "0aH0");
+
 
 
 
@@ -670,7 +761,8 @@ let ImagesProcessingModule = class ImagesProcessingModule {
 ImagesProcessingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [
-            _images_processing_component__WEBPACK_IMPORTED_MODULE_4__["ImagesProcessingComponent"]
+            _images_processing_component__WEBPACK_IMPORTED_MODULE_4__["ImagesProcessingComponent"],
+            _user_info_user_info_component__WEBPACK_IMPORTED_MODULE_7__["UserInfoComponent"]
         ],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -686,4 +778,4 @@ ImagesProcessingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
 /***/ })
 
 }]);
-//# sourceMappingURL=images-processing-images-processing-module.38e7814ed34726aaab9d.js.map
+//# sourceMappingURL=images-processing-images-processing-module.528be34df5af593a15e3.js.map

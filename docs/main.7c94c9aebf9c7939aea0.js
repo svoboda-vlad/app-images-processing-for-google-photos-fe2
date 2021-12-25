@@ -26,43 +26,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _raw_loader_home_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./home.component.html */ "Gd4t");
 /* harmony import */ var _home_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home.component.scss */ "bdh1");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "qCKp");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
-/* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../login/login.service */ "XNvx");
-/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../user/user.service */ "VGjC");
-
-
-
-
-
 
 
 
 
 let HomeComponent = class HomeComponent {
-    constructor(router, userService, loginService) {
-        this.router = router;
-        this.userService = userService;
-        this.loginService = loginService;
-        this.currentUser$ = null;
-    }
-    ngOnInit() {
-        this.currentUser$ = this.userService.getCurrentUser()
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])((err) => {
-            this.loginService.logOut();
-            this.userService.logOut();
-            this.error = err;
-            // this.router.navigate(['/login']);
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["throwError"])(err);
-        }));
-    }
+    constructor() { }
 };
-HomeComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-    { type: _user_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
-    { type: _login_login_service__WEBPACK_IMPORTED_MODULE_7__["LoginService"] }
-];
+HomeComponent.ctorParameters = () => [];
 HomeComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: 'ipfgp-home',
@@ -104,7 +75,7 @@ const environment = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n  <h2 class=\"text-light\">Images Processing For Google Photos</h2>\n  <!-- responsive -->\n  <button class=\"navbar-toggler\" type=\"button\" (click)=\"collapsed = !collapsed\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"navbar-collapse\" [class.collapse]=\"collapsed\" id=\"navbarContent\">\n    <ul class=\"navbar-nav ml-auto\">\n      <li class=\"nav-item\">\n        <a routerLink=\"/\" class=\"nav-link\">Home</a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"isLoggedIn()\">\n        <a routerLink=\"/images-processing\" class=\"nav-link\" routerLinkActive=\"active\">Images processing</a>\n      </li>      \n      <li class=\"nav-item\" *ngIf=\"isLoggedIn()\">\n        <a routerLink=\"/parameters\" class=\"nav-link\" routerLinkActive=\"active\">Parameters</a>\n      </li>\n      <li class=\"nav-item\" ngbDropdown *ngIf=\"isLoggedIn() && isAdmin()\">\n        <a class=\"nav-link\" tabindex=\"0\" ngbDropdownToggle id=\"navbarDropdown1\" role=\"button\">Administration</a>\n        <div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-right\">\n          <a ngbDropdownItem routerLink=\"/admin/parameters-default\" routerLinkActive=\"active\">Parameters (default)</a>\n          <a ngbDropdownItem routerLink=\"/admin/users\" routerLinkActive=\"active\">Users</a>\n        </div>\n      </li>\n\n      <li class=\"nav-item\" ngbDropdown *ngIf=\"isLoggedIn()\">\n        <a class=\"nav-link\" tabindex=\"0\" ngbDropdownToggle id=\"navbarDropdown2\" role=\"button\">User</a>\n        <div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-right\">\n          <a ngbDropdownItem routerLink=\"/user\" routerLinkActive=\"active\">User Info</a>\n          <a ngbDropdownItem (click)=\"logout()\" routerLinkActive=\"active\">Log out</a>\n        </div>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"!isLoggedIn()\">\n        <a routerLink=\"/login\" class=\"nav-link\" routerLinkActive=\"active\">Log In</a>\n      </li>      \n      <li class=\"nav-item\" *ngIf=\"!isLoggedIn()\">\n        <a routerLink=\"/registration-user\" class=\"nav-link\" routerLinkActive=\"active\">User Registration</a>\n      </li>       \n    </ul>\n  </div>\n</nav>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n  <h2 class=\"text-light\">Images processing for Google Photos</h2>\n  <!-- responsive -->\n  <button class=\"navbar-toggler\" type=\"button\" (click)=\"collapsed = !collapsed\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"navbar-collapse\" [class.collapse]=\"collapsed\" id=\"navbarContent\">\n    <ul class=\"navbar-nav ml-auto\">\n      <li class=\"nav-item\">\n        <a routerLink=\"/\" class=\"nav-link\">Home</a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"isLoggedIn()\">\n        <a routerLink=\"/images-processing\" class=\"nav-link\" routerLinkActive=\"active\">Images processing</a>\n      </li>      \n      <li class=\"nav-item\" *ngIf=\"isLoggedIn()\">\n        <a routerLink=\"/parameters\" class=\"nav-link\" routerLinkActive=\"active\">Parameters</a>\n      </li>\n      <li class=\"nav-item\" ngbDropdown *ngIf=\"isLoggedIn() && isAdmin()\">\n        <a class=\"nav-link\" tabindex=\"0\" ngbDropdownToggle id=\"navbarDropdown1\" role=\"button\">Administration</a>\n        <div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-right\">\n          <a ngbDropdownItem routerLink=\"/admin/parameters-default\" routerLinkActive=\"active\">Parameters (default)</a>\n          <a ngbDropdownItem routerLink=\"/admin/users\" routerLinkActive=\"active\">Users</a>\n        </div>\n      </li>\n\n      <li class=\"nav-item\" ngbDropdown *ngIf=\"isLoggedIn()\">\n        <a class=\"nav-link\" tabindex=\"0\" ngbDropdownToggle id=\"navbarDropdown2\" role=\"button\">User</a>\n        <div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-right\">\n          <a ngbDropdownItem routerLink=\"/user\" routerLinkActive=\"active\">User info</a>\n          <a ngbDropdownItem (click)=\"logout()\" routerLinkActive=\"active\">Log out</a>\n        </div>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"!isLoggedIn()\">\n        <a routerLink=\"/login\" class=\"nav-link\" routerLinkActive=\"active\">Log In</a>\n      </li>\n    </ul>\n  </div>\n</nav>\n");
 
 /***/ }),
 
@@ -215,7 +186,7 @@ ErrorResponseService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"alert alert-success\" *ngIf=\"currentUser$ | async as currentUser; else loadingOrError\">\n  <div>Logged in as user {{ currentUser.givenName }} {{ currentUser.familyName }} ({{ currentUser.username }}).</div>\n  <div>Previous login {{ currentUser.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}.</div>\n</div>\n\n<div>\n  <b>Images Processing For Google Photos</b> allows you to:\n  <ul>\n    <li>\n      <span class=\"text-info\">reduce images size</span> - resize your images using <a href=\"https://github.com/digitalascetic/ngx-pica\">@digitalascetic/ngx-pica</a> package (in order to save storage space for Google Photos)\n    </li>\n    <li>\n      <span class=\"text-info\">group images to albums</span> - group your images based on date and time into albums with predefined name\n    </li>\n    <li>\n      <span class=\"text-info\">preview images in albums</span> - view images by album all at once with smaller previews or one by one with larger previews\n    </li>\n    <li>\n      <span class=\"text-info\">rename those albums</span> - change predefined name of albums\n    </li>\n    <li>\n      <span class=\"text-info\">exclude images from albums</span> - remove selected images from albums\n    </li>\n    <li>\n      <span class=\"text-info\">upload albums and images to Google Photos</span> - create new albums on Google Photos and upload your images to the albums\n    </li>\n  </ul>\n</div>\n\n<ng-template #loadingOrError>\n  <ng-container *ngIf=\"error; else loading\">\n    <div class=\"alert alert-secondary\">No user logged in.</div>\n  </ng-container>\n  <ng-template #loading>\n    <div>Loading ...</div>\n  </ng-template>\n</ng-template>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\n  <b>Images processing for Google Photos</b> allows you to:\n  <ul>\n    <li>\n      <span class=\"text-info\">reduce images size</span> - resize your images using <a href=\"https://github.com/digitalascetic/ngx-pica\">@digitalascetic/ngx-pica</a> package (in order to save storage space for Google Photos)\n    </li>\n    <li>\n      <span class=\"text-info\">group images to albums</span> - group your images based on date and time into albums with predefined name\n    </li>\n    <li>\n      <span class=\"text-info\">preview images in albums</span> - view images by album all at once with smaller previews or one by one with larger previews\n    </li>\n    <li>\n      <span class=\"text-info\">rename those albums</span> - change predefined name of albums\n    </li>\n    <li>\n      <span class=\"text-info\">exclude images from albums</span> - remove selected images from albums\n    </li>\n    <li>\n      <span class=\"text-info\">upload albums and images to Google Photos</span> - create new albums on Google Photos and upload your images to the albums\n    </li>\n  </ul>\n</div>");
 
 /***/ }),
 
@@ -301,9 +272,6 @@ let UserService = class UserService {
     }
     logOut() {
         this.user = null;
-    }
-    registerUser(registrationUser) {
-        return this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_URL + this.userUrl, registrationUser).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorResponseService.handleError));
     }
     deleteUser() {
         return this.http.delete(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_URL + this.userUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorResponseService.handleError));
@@ -663,10 +631,6 @@ const routes = [
         loadChildren: () => __webpack_require__.e(/*! import() | login-login-module */ "login-login-module").then(__webpack_require__.bind(null, /*! ./login/login.module */ "X3zk")).then(m => m.LoginModule)
     },
     {
-        path: 'registration-user',
-        loadChildren: () => __webpack_require__.e(/*! import() | registration-user-registration-user-module */ "registration-user-registration-user-module").then(__webpack_require__.bind(null, /*! ./registration-user/registration-user.module */ "dTRx")).then(m => m.RegistrationUserModule)
-    },
-    {
         path: 'google-login',
         loadChildren: () => Promise.all(/*! import() | google-login-google-login-module */[__webpack_require__.e("common"), __webpack_require__.e("google-login-google-login-module")]).then(__webpack_require__.bind(null, /*! ./google-login/google-login.module */ "9QTQ")).then(m => m.GoogleLoginModule)
     },
@@ -767,4 +731,4 @@ webpackEmptyAsyncContext.id = "zn8P";
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main.18d9d17aee5208c5a213.js.map
+//# sourceMappingURL=main.7c94c9aebf9c7939aea0.js.map

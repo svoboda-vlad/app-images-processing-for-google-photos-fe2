@@ -275,9 +275,6 @@ let UserService = class UserService {
     deleteUser() {
         return this.http.delete(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_URL + this.userUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorResponseService.handleError));
     }
-    updateUser(user) {
-        return this.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].SERVER_URL + this.userUrl, user).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorResponseService.handleError));
-    }
 };
 UserService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
@@ -290,7 +287,7 @@ UserService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 ], UserService);
 
 class User {
-    constructor(username, lastLoginDateTime, previousLoginDateTime, givenName, familyName, email, userRoles) {
+    constructor(username, email, lastLoginDateTime, previousLoginDateTime, givenName, familyName, userRoles) {
         this.username = username;
         this.lastLoginDateTime = lastLoginDateTime;
         this.previousLoginDateTime = previousLoginDateTime;
@@ -723,4 +720,4 @@ webpackEmptyAsyncContext.id = "zn8P";
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main.704c8e5b0249d305a11a.js.map
+//# sourceMappingURL=main.ea1994420587b452f23e.js.map

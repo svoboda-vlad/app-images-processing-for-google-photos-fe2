@@ -5,11 +5,13 @@ import { ImagesProcessingRoutingModule } from './images-processing-routing.modul
 import { ImagesProcessingComponent } from './images-processing.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserInfoComponent } from '../user-info/user-info.component';
 
 
 @NgModule({
   declarations: [
-    ImagesProcessingComponent
+    ImagesProcessingComponent,
+    UserInfoComponent
   ],
   imports: [
     CommonModule,

@@ -91,17 +91,13 @@ export class MediaItemsGroup {
   mediaItemsForGrouping: MediaItemForGrouping[];
   name: string;
   albumId?: string;
-  show: boolean;
-  largePreview: boolean;
-
+  
   constructor(id: number, startTime: dayjs.Dayjs, endTime: dayjs.Dayjs, mediaItemsForGrouping: MediaItemForGrouping[], name: string) {
     this.id = id;
     this.startTime = startTime;
     this.endTime = endTime;
     this.mediaItemsForGrouping = mediaItemsForGrouping;
     this.name = name;
-    this.show = true;
-    this.largePreview = true;
   }
 
   getUploadedCount() : number {

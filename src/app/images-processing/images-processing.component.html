@@ -83,45 +83,21 @@
     <div class="my-width-groups mx-auto mb-2 p-3">
       <div *ngFor="let group of mediaItemsGroups" class="card border p-3 mb-2">
         <!-- group header -->
-        <div class="card-header mb-2 p-3">
-          <button (click)="changeShowGroup(group)" class="btn btn-primary m-2">
-            {{ group.show ? 'Hide ' : 'Show ' }} {{ group.mediaItemsForGrouping.length }} images
-          </button>
-          <button *ngIf="group.show" (click)="changeLargePreview(group)" class="btn btn-secondary m-2">{{
-            group.largePreview ? 'Small preview' : 'Large preview' }}</button>
+        <div class="card-header mb-2 p-1 text-center">
+          <div class="small">(click to edit name)</div>
           <span class="font-weight-bold" #groupName contenteditable
             (blur)="updateGroupName(group, groupName.textContent)">{{ group.name }}</span>
-          <button (click)="removeGroup(group)" class="btn btn-primary m-2" *ngIf="group.show">Remove group</button>
+          <button (click)="removeGroup(group)" class="btn btn-primary m-2" title="Remove group">X</button>
         </div>
 
         <!-- group images -->
 
-        <!-- bootstrap card -->
-        <div *ngIf="!group.largePreview">
-          <div class="card-body group" *ngIf="group.show">
-            <div *ngFor="let item of group.mediaItemsForGrouping">
-
-              <div class="file p-3 mb-2">
-                {{ item.mediaItem.dateTime | date: "HH:mm:ss" }}<br />
-                <img class='small-img' [src]="item.mediaItem.contentUrl" /><br />
-                <button (click)="removeItemFromGroup(group, item)" class="btn btn-primary mb-2">Remove</button>
-                <div>
-                  {{ item.mediaItem.uploadSuccess ? "Uploaded" : "Not uploaded" }}
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
         <!-- bootstrap carousel -->
-        <div *ngIf="group.largePreview" class="carousel-div">
-          <ngb-carousel *ngIf="group.show" [interval]="false">
+        <div class="carousel-div">
+          <ngb-carousel [interval]="false">
             <ng-template ngbSlide *ngFor="let item of group.mediaItemsForGrouping">
               <div class="carousel-caption">
-                <span class="bg-light text-primary m-2 p-2">{{ item.mediaItem.dateTime | date: "HH:mm:ss" }}
-                  ({{ item.mediaItem.uploadSuccess ? "Uploaded" : "Not uploaded" }})</span>
-                <button (click)="removeItemFromGroup(group, item)" class="btn btn-primary mb-2">Remove</button>
+                <button (click)="removeItemFromGroup(group, item)" class="btn btn-primary mb-2" title="Remove">X</button>
               </div>
               <div class="picsum-img-wrapper">
                 <img [src]="item.mediaItem.contentUrl" class="carousel-img d-block w-100">
@@ -129,7 +105,6 @@
             </ng-template>
           </ngb-carousel>
         </div>
-
       </div>
     </div>
 
@@ -140,26 +115,17 @@
 
     <table class="table table-bordered my-width mx-auto p-3 mb-2">
       <th>Group</th>
-      <th>Days</th>
-      <th>Album</th>
       <th>Files</th>
       <th>Uploaded</th>
-      <th>Not uploaded</th>
       <tr *ngFor="let group of mediaItemsGroups">
         <td>{{ group.name }}</td>
-        <td>{{ getDaysDiffFromToday(group.startTime) }}</td>
-        <td>{{ group.albumId ? 'CREATED' : 'not created' }}</td>
         <td>{{ group.mediaItemsForGrouping.length }}</td>
         <td>{{ group.getUploadedCount() }}</td>
-        <td>{{ group.mediaItemsForGrouping.length - group.getUploadedCount() }}</td>
       </tr>
       <tr>
         <td>Total</td>
-        <td></td>
-        <td></td>
         <td>{{ getMediaItemsCount() }}</td>
         <td>{{ getUploadedCount() }}</td>
-        <td>{{ getMediaItemsCount() - getUploadedCount() }}</td>
       </tr>
     </table>
 

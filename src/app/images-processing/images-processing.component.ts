@@ -185,7 +185,7 @@ export class ImagesProcessingComponent implements OnInit {
     let group: MediaItemsGroup;
     let id = 1;
     this.mediaItemsForGrouping.forEach((item, i) => {
-      let groupName: string = item.mediaItem.dateTime.format('YYYY-MM-DD') + ' místo/place (' + item.mediaItem.dateTime.format('dddd H') + 'h)';
+      let groupName: string = item.mediaItem.dateTime.format('YYYY-MM-DD') + ' (' + item.mediaItem.dateTime.format('dd H') + ':00) text';
       groupName = this.translateWeekdayNamesToCzech(groupName);
       // if the first file in the sequence, create a new group
       if (i === 0) {
@@ -232,13 +232,13 @@ export class ImagesProcessingComponent implements OnInit {
   }
 
   private translateWeekdayNamesToCzech(name: string): string {
-    return name.replace('Monday', 'pondělí/Monday')
-      .replace('Tuesday', 'úterý/Tuesday')
-      .replace('Wednesday', 'středa/Wednesday')
-      .replace('Thursday', 'čtvrtek/Thursday')
-      .replace('Friday', 'pátek/Friday')
-      .replace('Saturday', 'sobota/Saturday')
-      .replace('Sunday', 'neděle/Sunday');
+    return name.replace('Mo', 'po/Mo')
+      .replace('Tu', 'út/Tu')
+      .replace('We', 'st/We')
+      .replace('Th', 'čt/Th')
+      .replace('Fr', 'pá/Fr')
+      .replace('Sa', 'so/Sa')
+      .replace('Su', 'ne/Su');
   }
 
   // async/await + for...of loop to ensure sequential API calls
@@ -275,22 +275,6 @@ export class ImagesProcessingComponent implements OnInit {
 
   removeGroup(gr: MediaItemsGroup): void {
     this.mediaItemsGroups.splice(this.mediaItemsGroups.indexOf(gr), 1);
-  }
-
-  changeShowGroup(gr: MediaItemsGroup): void {
-    this.mediaItemsGroups.forEach((group) => {
-      if (group.id === gr.id) {
-        group.show = !group.show;
-      }
-    });
-  }
-
-  changeLargePreview(gr: MediaItemsGroup): void {
-    this.mediaItemsGroups.forEach((group) => {
-      if (group.id === gr.id) {
-        group.largePreview = !group.largePreview;
-      }
-    });
   }
 
   getUploadedCount(): number {

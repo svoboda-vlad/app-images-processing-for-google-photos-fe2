@@ -1,0 +1,146 @@
+"use strict";
+(self["webpackChunkimages_processing_for_google_photos"] = self["webpackChunkimages_processing_for_google_photos"] || []).push([[592],{
+
+/***/ 9075:
+/*!******************************************************!*\
+  !*** ./src/app/google-login/google-login.service.ts ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GoogleLoginService": () => (/* binding */ GoogleLoginService),
+/* harmony export */   "IdTokenGoogle": () => (/* binding */ IdTokenGoogle)
+/* harmony export */ });
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 4850);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 7221);
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 2340);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 5000);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ 520);
+/* harmony import */ var _shared_error_response_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/error-response.service */ 4888);
+
+
+
+
+
+let GoogleLoginService = /*#__PURE__*/(() => {
+  class GoogleLoginService {
+    constructor(http, errorResponseService) {
+      this.http = http;
+      this.errorResponseService = errorResponseService;
+      this.googleLoginUrl = "google-login";
+      this.authorizationHeader = "Authorization";
+      this.jwtKey = "jwt";
+      this.accessTokenKey = "access_token";
+    }
+
+    logIn(idToken) {
+      return this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.SERVER_URL + this.googleLoginUrl, idToken, {
+        observe: 'response'
+      }).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(res => {
+        const token = res.headers.get(this.authorizationHeader);
+        if (token != null) localStorage.setItem(this.jwtKey, token);
+      }), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.catchError)(this.errorResponseService.handleError));
+    }
+
+    getJwtToken() {
+      return localStorage.getItem(this.jwtKey);
+    }
+
+    logOut() {
+      localStorage.removeItem(this.jwtKey);
+    }
+
+    getAccessToken() {
+      return localStorage.getItem(this.accessTokenKey);
+    }
+
+  }
+
+  GoogleLoginService.ɵfac = function GoogleLoginService_Factory(t) {
+    return new (t || GoogleLoginService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_5__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_shared_error_response_service__WEBPACK_IMPORTED_MODULE_1__.ErrorResponseService));
+  };
+
+  GoogleLoginService.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
+    token: GoogleLoginService,
+    factory: GoogleLoginService.ɵfac,
+    providedIn: 'root'
+  });
+  return GoogleLoginService;
+})();
+class IdTokenGoogle {
+  constructor(i) {
+    this.idToken = i;
+  }
+
+}
+
+/***/ }),
+
+/***/ 9027:
+/*!**************************************************!*\
+  !*** ./src/app/parameters/parameters.service.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ParametersService": () => (/* binding */ ParametersService),
+/* harmony export */   "Parameters": () => (/* binding */ Parameters)
+/* harmony export */ });
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 7221);
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 2340);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 5000);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ 520);
+/* harmony import */ var _shared_error_response_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/error-response.service */ 4888);
+
+
+
+
+
+let ParametersService = /*#__PURE__*/(() => {
+  class ParametersService {
+    constructor(http, errorResponseService) {
+      this.http = http;
+      this.errorResponseService = errorResponseService;
+      this.parametersUrl = 'parameters';
+      this.parametersResetToDefaultUrl = 'parameters-reset-to-default';
+    }
+
+    getParameters() {
+      return this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.SERVER_URL + this.parametersUrl).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.catchError)(this.errorResponseService.handleError));
+    }
+
+    updateParameters(parameters) {
+      return this.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.SERVER_URL + this.parametersUrl, parameters).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.catchError)(this.errorResponseService.handleError));
+    }
+
+    resetToDefault() {
+      return this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.SERVER_URL + this.parametersResetToDefaultUrl).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.catchError)(this.errorResponseService.handleError));
+    }
+
+  }
+
+  ParametersService.ɵfac = function ParametersService_Factory(t) {
+    return new (t || ParametersService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_shared_error_response_service__WEBPACK_IMPORTED_MODULE_1__.ErrorResponseService));
+  };
+
+  ParametersService.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
+    token: ParametersService,
+    factory: ParametersService.ɵfac,
+    providedIn: 'root'
+  });
+  return ParametersService;
+})();
+class Parameters {
+  constructor(timeDiffGroup, resizeWidth, resizeHeight) {
+    this.timeDiffGroup = timeDiffGroup;
+    this.resizeWidth = resizeWidth;
+    this.resizeHeight = resizeHeight;
+  }
+
+}
+
+/***/ })
+
+}]);

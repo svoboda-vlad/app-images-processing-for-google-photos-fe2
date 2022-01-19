@@ -12,7 +12,7 @@
         <div class="col-sm">
           <input class="form-control" id="timeDiffGroup" type="text" formControlName="timeDiffGroup" />
         </div>
-        <div class="card-text text-danger" *ngIf="paramsForm.get(['timeDiffGroup']).errors">
+        <div class="card-text text-danger" *ngIf="paramsForm.get(['timeDiffGroup'])!.errors">
           Time diff for groups (in sec) must be between 60 and 86400.
         </div>
       </div>
@@ -21,7 +21,7 @@
         <div class="col-sm">
           <input class="form-control" id="resizeWidth" type="text" formControlName="resizeWidth" />
         </div>
-        <div class="card-text text-danger" *ngIf="paramsForm.get(['resizeWidth']).errors">
+        <div class="card-text text-danger" *ngIf="paramsForm.get(['resizeWidth'])!.errors">
           Resize width (px) must be between 1 and 10000.
         </div>
       </div>
@@ -30,7 +30,7 @@
         <div class="col-sm">
           <input class="form-control" id="resizeHeight" type="text" formControlName="resizeHeight" />
         </div>
-        <div class="card-text text-danger" *ngIf="paramsForm.get(['resizeHeight']).errors">
+        <div class="card-text text-danger" *ngIf="paramsForm.get(['resizeHeight'])!.errors">
           Resize height (px) must be between 1 and 10000.
         </div>
       </div>
@@ -86,7 +86,7 @@
         <div class="card-header mb-2 p-1 text-center">
           <div class="small">(click to edit name)</div>
           <span class="font-weight-bold" #groupName contenteditable
-            (blur)="updateGroupName(group, groupName.textContent)">{{ group.name }}</span>
+            (blur)="updateGroupName(group, groupName.textContent!)">{{ group.name }}</span>
           <button (click)="removeGroup(group)" class="btn btn-primary m-2" title="Remove group">X</button>
         </div>
 
@@ -94,7 +94,7 @@
 
         <!-- bootstrap carousel -->
         <div class="carousel-div">
-          <ngb-carousel [interval]="false">
+          <ngb-carousel [interval]=0>
             <ng-template ngbSlide *ngFor="let item of group.mediaItemsForGrouping">
               <div class="carousel-caption">
                 <button (click)="removeItemFromGroup(group, item)" class="btn btn-primary mb-2" title="Remove">X</button>

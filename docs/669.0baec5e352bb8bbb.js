@@ -1236,13 +1236,13 @@ let DateUtilService = /*#__PURE__*/(() => {
     getDaysDiffFromTodayDayjs(comparedDate) {
       const todayDay = dayjs__WEBPACK_IMPORTED_MODULE_0__(dayjs__WEBPACK_IMPORTED_MODULE_0__().format('YYYY-MM-DD'));
       const comparedDateDay = dayjs__WEBPACK_IMPORTED_MODULE_0__(comparedDate.format('YYYY-MM-DD'));
-      return comparedDateDay.diff(todayDay, 'days');
+      return todayDay.diff(comparedDateDay, 'days');
     }
 
     getDaysDiffFromTodayDate(comparedDate) {
       const todayDay = dayjs__WEBPACK_IMPORTED_MODULE_0__(dayjs__WEBPACK_IMPORTED_MODULE_0__().format('YYYY-MM-DD'));
       const comparedDateDay = dayjs__WEBPACK_IMPORTED_MODULE_0__(dayjs__WEBPACK_IMPORTED_MODULE_0__(comparedDate).format('YYYY-MM-DD'));
-      return comparedDateDay.diff(todayDay, 'days');
+      return todayDay.diff(comparedDateDay, 'days');
     }
 
   }

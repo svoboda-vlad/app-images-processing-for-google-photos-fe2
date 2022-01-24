@@ -14,13 +14,13 @@ export class DateUtilService {
   getDaysDiffFromTodayDayjs(comparedDate: dayjs.Dayjs): number {
     const todayDay = dayjs(dayjs().format('YYYY-MM-DD'));
     const comparedDateDay = dayjs(comparedDate.format('YYYY-MM-DD'));
-    return comparedDateDay.diff(todayDay, 'days');
+    return todayDay.diff(comparedDateDay, 'days');
   }
 
   getDaysDiffFromTodayDate(comparedDate: Date): number {
     const todayDay = dayjs(dayjs().format('YYYY-MM-DD'));
     const comparedDateDay = dayjs(dayjs(comparedDate).format('YYYY-MM-DD'));
-    return comparedDateDay.diff(todayDay, 'days');
+    return todayDay.diff(comparedDateDay, 'days');
   }
 
 }

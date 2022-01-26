@@ -121,7 +121,7 @@ let LoginComponent = /*#__PURE__*/(() => {
     }
 
     logInWithGoogle() {
-      location.href = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + src_environments_environment__WEBPACK_IMPORTED_MODULE_1__.environment.GOOGLE_CLIENT_ID + "&redirect_uri=" + src_environments_environment__WEBPACK_IMPORTED_MODULE_1__.environment.FRONT_END_URL + "google-login&response_type=id_token%20token&scope=profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fphotoslibrary.appendonly&nonce=abcdef";
+      location.href = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + src_environments_environment__WEBPACK_IMPORTED_MODULE_1__.environment.GOOGLE_CLIENT_ID + "&redirect_uri=" + src_environments_environment__WEBPACK_IMPORTED_MODULE_1__.environment.FRONT_END_URL + "google-login&response_type=id_token%20token&scope=profile%20email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fphotoslibrary.appendonly&nonce=abcdef";
     }
 
   }

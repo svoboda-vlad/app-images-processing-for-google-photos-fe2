@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { catchError, concatMap, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
-import { GoogleLoginService, IdTokenGoogle } from './google-login.service';
 
 @Component({
   selector: 'ipfgp-google-login',
@@ -13,11 +12,11 @@ import { GoogleLoginService, IdTokenGoogle } from './google-login.service';
 export class GoogleLoginComponent implements OnInit {
 
   accessTokenKey = "access_token";
+  idTokenKey = "id_token";  
   error: Object | null = null;
   googleLogin$: Observable<void> | null = null;
 
   constructor(private router: Router,
-    private googleLoginService: GoogleLoginService,
     private userService: UserService) { }
 
   ngOnInit(): void {
@@ -30,22 +29,16 @@ export class GoogleLoginComponent implements OnInit {
       if (p[0] == "id_token") idToken = p[1];
     });
     localStorage.setItem(this.accessTokenKey, accessToken);
-    const idTokenGoogle: IdTokenGoogle = new IdTokenGoogle(idToken);
+    localStorage.setItem(this.idTokenKey, idToken);    
 
-    this.googleLogin$ = this.googleLoginService
-      .logIn(idTokenGoogle)
-      .pipe(
-        concatMap(
-          () => this.userService.getCurrentUser().pipe(
-            map(() => {
-              this.router.navigate(['images-processing']);
-             })
-             )
-          ),
-          catchError(err => {
-            this.error = err;
-            return throwError(err);
-          })
+    this.googleLogin$ = this.userService.getCurrentUser().pipe(
+      map(() => {
+        this.router.navigate(['images-processing']);
+      }),
+      catchError(err => {
+        this.error = err;
+        return throwError(err);
+      })
       );
   }
 

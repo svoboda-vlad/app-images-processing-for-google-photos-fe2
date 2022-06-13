@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user/user.service';
-import { LoginService } from '../login/login.service';
+import { GoogleLoginService } from '../google-login/google-login.service';
 
 @Component({
   selector: 'ipfgp-navbar',
@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
 
   collapsed = true;
 
-  constructor(private loginService: LoginService,
+  constructor(private googleLoginService: GoogleLoginService,
     private userService: UserService,
     private router: Router) { }
 
@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.loginService.logOut();
+    this.googleLoginService.logOut();
     this.userService.logOut();
     this.router.navigate(['']);
   }

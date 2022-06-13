@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { LoginService } from '../login/login.service';
+import { GoogleLoginService } from '../google-login/google-login.service';
 import { User, UserService } from '../user/user.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   closeResult = '';
 
   constructor(private userService: UserService, private route: ActivatedRoute,
-    private router: Router, private loginService: LoginService,
+    private router: Router, private googleLoginService: GoogleLoginService,
     private modalService: NgbModal) {
   }
 
@@ -42,7 +42,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.deleteUserSubscription = this.userService.deleteUser()
       .subscribe(() => {
         this.deleteError = false;
-        this.loginService.logOut();
+        this.googleLoginService.logOut();
         this.userService.logOut();
         this.router.navigate(['/login']);
       },

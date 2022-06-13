@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ImagesProcessingComponent": () => (/* binding */ ImagesProcessingComponent),
 /* harmony export */   "UploadingStatus": () => (/* binding */ UploadingStatus)
 /* harmony export */ });
-/* harmony import */ var _home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 5861);
+/* harmony import */ var C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 5861);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ 3075);
 /* harmony import */ var _media_item_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./media-item.service */ 1860);
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dayjs */ 1764);
@@ -911,13 +911,13 @@ let ImagesProcessingComponent = /*#__PURE__*/(() => {
     createAlbumsAndMedia() {
       var _this = this;
 
-      return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this.uploadingStatus = UploadingStatus.InProgress;
 
         for (const group of _this.mediaItemsGroups) {
           if (group.albumId == null) {
             yield _this.albumService.albums(group, _this.googleLoginService.getAccessToken()).toPromise().then( /*#__PURE__*/function () {
-              var _ref = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (album) {
+              var _ref = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (album) {
                 group.albumId = album.id;
                 yield _this.createMedia(group);
               });
@@ -941,11 +941,11 @@ let ImagesProcessingComponent = /*#__PURE__*/(() => {
     createMedia(group) {
       var _this2 = this;
 
-      return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         for (const item of group.mediaItemsForGrouping) {
           if (!item.mediaItem.uploadSuccess) {
             yield _this2.mediaItemService.uploads(item.mediaItem, _this2.googleLoginService.getAccessToken()).toPromise().then( /*#__PURE__*/function () {
-              var _ref2 = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (uploadToken) {
+              var _ref2 = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (uploadToken) {
                 yield _this2.mediaItemService.batchCreate(item.mediaItem, uploadToken, _this2.googleLoginService.getAccessToken(), group.albumId).toPromise().then(() => item.mediaItem.uploadSuccess = true).catch(() => _this2.uploadingStatus = UploadingStatus.Fail);
               });
 
@@ -1277,7 +1277,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 5000);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 4202);
 /* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../user/user.service */ 1584);
-/* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../login/login.service */ 294);
+/* harmony import */ var _google_login_google_login_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../google-login/google-login.service */ 9075);
 /* harmony import */ var _shared_date_util_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/date-util.service */ 2423);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 9808);
 
@@ -1314,17 +1314,17 @@ function UserInfoComponent_div_0_Template(rf, ctx) {
 
 let UserInfoComponent = /*#__PURE__*/(() => {
   class UserInfoComponent {
-    constructor(router, userService, loginService, dateUtilService) {
+    constructor(router, userService, googleLoginService, dateUtilService) {
       this.router = router;
       this.userService = userService;
-      this.loginService = loginService;
+      this.googleLoginService = googleLoginService;
       this.dateUtilService = dateUtilService;
       this.currentUser$ = null;
     }
 
     ngOnInit() {
       this.currentUser$ = this.userService.getCurrentUser().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.catchError)(err => {
-        this.loginService.logOut();
+        this.googleLoginService.logOut();
         this.userService.logOut();
         this.error = err; // this.router.navigate(['/login']);
 
@@ -1339,7 +1339,7 @@ let UserInfoComponent = /*#__PURE__*/(() => {
   }
 
   UserInfoComponent.ɵfac = function UserInfoComponent_Factory(t) {
-    return new (t || UserInfoComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_user_user_service__WEBPACK_IMPORTED_MODULE_0__.UserService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_login_login_service__WEBPACK_IMPORTED_MODULE_1__.LoginService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_shared_date_util_service__WEBPACK_IMPORTED_MODULE_2__.DateUtilService));
+    return new (t || UserInfoComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_user_user_service__WEBPACK_IMPORTED_MODULE_0__.UserService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_google_login_google_login_service__WEBPACK_IMPORTED_MODULE_1__.GoogleLoginService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_shared_date_util_service__WEBPACK_IMPORTED_MODULE_2__.DateUtilService));
   };
 
   UserInfoComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({

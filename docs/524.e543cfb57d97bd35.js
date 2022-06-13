@@ -17,7 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 5000);
 /* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../user/user.service */ 1584);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 4202);
-/* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../login/login.service */ 294);
+/* harmony import */ var _google_login_google_login_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../google-login/google-login.service */ 9075);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 9808);
 
 
@@ -270,11 +270,11 @@ function UserDetailComponent_ng_template_6_Template(rf, ctx) {
 
 let UserDetailComponent = /*#__PURE__*/(() => {
   class UserDetailComponent {
-    constructor(userService, route, router, loginService, modalService) {
+    constructor(userService, route, router, googleLoginService, modalService) {
       this.userService = userService;
       this.route = route;
       this.router = router;
-      this.loginService = loginService;
+      this.googleLoginService = googleLoginService;
       this.modalService = modalService;
       this.user$ = null;
       this.error = null;
@@ -297,7 +297,7 @@ let UserDetailComponent = /*#__PURE__*/(() => {
     deleteUser() {
       this.deleteUserSubscription = this.userService.deleteUser().subscribe(() => {
         this.deleteError = false;
-        this.loginService.logOut();
+        this.googleLoginService.logOut();
         this.userService.logOut();
         this.router.navigate(['/login']);
       }, () => this.deleteError = true);
@@ -324,7 +324,7 @@ let UserDetailComponent = /*#__PURE__*/(() => {
   }
 
   UserDetailComponent.ɵfac = function UserDetailComponent_Factory(t) {
-    return new (t || UserDetailComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_user_user_service__WEBPACK_IMPORTED_MODULE_0__.UserService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.ActivatedRoute), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_login_login_service__WEBPACK_IMPORTED_MODULE_1__.LoginService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__.NgbModal));
+    return new (t || UserDetailComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_user_user_service__WEBPACK_IMPORTED_MODULE_0__.UserService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.ActivatedRoute), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_google_login_google_login_service__WEBPACK_IMPORTED_MODULE_1__.GoogleLoginService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__.NgbModal));
   };
 
   UserDetailComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({

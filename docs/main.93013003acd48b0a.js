@@ -509,7 +509,7 @@ const routes = [{
   loadChildren: () => __webpack_require__.e(/*! import() */ 107).then(__webpack_require__.bind(__webpack_require__, /*! ./login/login.module */ 107)).then(m => m.LoginModule)
 }, {
   path: 'google-login',
-  loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e(592), __webpack_require__.e(926)]).then(__webpack_require__.bind(__webpack_require__, /*! ./google-login/google-login.module */ 4926)).then(m => m.GoogleLoginModule)
+  loadChildren: () => __webpack_require__.e(/*! import() */ 926).then(__webpack_require__.bind(__webpack_require__, /*! ./google-login/google-login.module */ 4926)).then(m => m.GoogleLoginModule)
 }, {
   path: 'admin',
   loadChildren: () => __webpack_require__.e(/*! import() */ 95).then(__webpack_require__.bind(__webpack_require__, /*! ./admin/admin.module */ 7095)).then(m => m.AdminModule),
@@ -678,6 +678,57 @@ let AppModule = /*#__PURE__*/(() => {
 
 /***/ }),
 
+/***/ 9075:
+/*!******************************************************!*\
+  !*** ./src/app/google-login/google-login.service.ts ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GoogleLoginService": () => (/* binding */ GoogleLoginService)
+/* harmony export */ });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 5000);
+
+let GoogleLoginService = /*#__PURE__*/(() => {
+  class GoogleLoginService {
+    constructor() {
+      this.googleLoginUrl = "google-login";
+      this.authorizationHeader = "Authorization";
+      this.idTokenKey = "id_token";
+      this.accessTokenKey = "access_token";
+    }
+
+    logOut() {
+      localStorage.removeItem(this.idTokenKey);
+      localStorage.removeItem(this.accessTokenKey);
+    }
+
+    getIdToken() {
+      return localStorage.getItem(this.idTokenKey);
+    }
+
+    getAccessToken() {
+      return localStorage.getItem(this.accessTokenKey);
+    }
+
+  }
+
+  GoogleLoginService.ɵfac = function GoogleLoginService_Factory(t) {
+    return new (t || GoogleLoginService)();
+  };
+
+  GoogleLoginService.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
+    token: GoogleLoginService,
+    factory: GoogleLoginService.ɵfac,
+    providedIn: 'root'
+  });
+  return GoogleLoginService;
+})();
+
+/***/ }),
+
 /***/ 5067:
 /*!****************************************!*\
   !*** ./src/app/home/home.component.ts ***!
@@ -766,79 +817,6 @@ let HomeComponent = /*#__PURE__*/(() => {
 
 /***/ }),
 
-/***/ 294:
-/*!****************************************!*\
-  !*** ./src/app/login/login.service.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LoginService": () => (/* binding */ LoginService),
-/* harmony export */   "LoginCredentials": () => (/* binding */ LoginCredentials)
-/* harmony export */ });
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 4850);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 7221);
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 2340);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 5000);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ 520);
-/* harmony import */ var _shared_error_response_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/error-response.service */ 4888);
-
-
-
-
-
-let LoginService = /*#__PURE__*/(() => {
-  class LoginService {
-    constructor(http, errorResponseService) {
-      this.http = http;
-      this.errorResponseService = errorResponseService;
-      this.loginUrl = 'login';
-      this.authorizationHeader = 'Authorization';
-      this.jwtKey = 'jwt';
-    }
-
-    logIn(user) {
-      return this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.SERVER_URL + this.loginUrl, user, {
-        observe: 'response'
-      }).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(res => {
-        const token = res.headers.get(this.authorizationHeader);
-        if (token != null) localStorage.setItem(this.jwtKey, token);
-      }), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.catchError)(this.errorResponseService.handleError));
-    }
-
-    getJwtToken() {
-      return localStorage.getItem(this.jwtKey);
-    }
-
-    logOut() {
-      localStorage.removeItem(this.jwtKey);
-    }
-
-  }
-
-  LoginService.ɵfac = function LoginService_Factory(t) {
-    return new (t || LoginService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_5__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_shared_error_response_service__WEBPACK_IMPORTED_MODULE_1__.ErrorResponseService));
-  };
-
-  LoginService.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
-    token: LoginService,
-    factory: LoginService.ɵfac,
-    providedIn: 'root'
-  });
-  return LoginService;
-})();
-class LoginCredentials {
-  constructor(u, p) {
-    this.username = u;
-    this.password = p;
-  }
-
-}
-
-/***/ }),
-
 /***/ 6313:
 /*!********************************************!*\
   !*** ./src/app/navbar/navbar.component.ts ***!
@@ -851,7 +829,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "NavbarComponent": () => (/* binding */ NavbarComponent)
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 5000);
-/* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../login/login.service */ 294);
+/* harmony import */ var _google_login_google_login_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../google-login/google-login.service */ 9075);
 /* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../user/user.service */ 1584);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 4202);
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ 3707);
@@ -938,8 +916,8 @@ function NavbarComponent_li_14_Template(rf, ctx) {
 
 let NavbarComponent = /*#__PURE__*/(() => {
   class NavbarComponent {
-    constructor(loginService, userService, router) {
-      this.loginService = loginService;
+    constructor(googleLoginService, userService, router) {
+      this.googleLoginService = googleLoginService;
       this.userService = userService;
       this.router = router;
       this.collapsed = true;
@@ -956,7 +934,7 @@ let NavbarComponent = /*#__PURE__*/(() => {
     }
 
     logout() {
-      this.loginService.logOut();
+      this.googleLoginService.logOut();
       this.userService.logOut();
       this.router.navigate(['']);
     }
@@ -964,7 +942,7 @@ let NavbarComponent = /*#__PURE__*/(() => {
   }
 
   NavbarComponent.ɵfac = function NavbarComponent_Factory(t) {
-    return new (t || NavbarComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_login_login_service__WEBPACK_IMPORTED_MODULE_0__.LoginService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_user_user_service__WEBPACK_IMPORTED_MODULE_1__.UserService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__.Router));
+    return new (t || NavbarComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_google_login_google_login_service__WEBPACK_IMPORTED_MODULE_0__.GoogleLoginService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_user_user_service__WEBPACK_IMPORTED_MODULE_1__.UserService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__.Router));
   };
 
   NavbarComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
@@ -1100,14 +1078,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 2340);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 5000);
-/* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../login/login.service */ 294);
+/* harmony import */ var _google_login_google_login_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../google-login/google-login.service */ 9075);
 
 
 
 let AuthInterceptor = /*#__PURE__*/(() => {
   class AuthInterceptor {
-    constructor(loginService) {
-      this.loginService = loginService;
+    constructor(googleLoginService) {
+      this.googleLoginService = googleLoginService;
     }
 
     intercept(request, next) {
@@ -1115,7 +1093,7 @@ let AuthInterceptor = /*#__PURE__*/(() => {
         return next.handle(request);
       }
 
-      const token = this.loginService.getJwtToken();
+      const token = this.googleLoginService.getIdToken();
 
       if (token) {
         request = request.clone({
@@ -1131,7 +1109,7 @@ let AuthInterceptor = /*#__PURE__*/(() => {
   }
 
   AuthInterceptor.ɵfac = function AuthInterceptor_Factory(t) {
-    return new (t || AuthInterceptor)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_login_login_service__WEBPACK_IMPORTED_MODULE_1__.LoginService));
+    return new (t || AuthInterceptor)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_google_login_google_login_service__WEBPACK_IMPORTED_MODULE_1__.GoogleLoginService));
   };
 
   AuthInterceptor.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
@@ -73888,8 +73866,8 @@ let NgbAlert = /*#__PURE__*/(() => {
       let i18n_1;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_2 = goog.getMsg("Close");
-        i18n_1 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_2;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_2 = goog.getMsg("Close");
+        i18n_1 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_2;
       } else {
         i18n_1 = $localize`:@@ngb.alert.close:Close`;
       }
@@ -74934,11 +74912,11 @@ let NgbCarousel = /*#__PURE__*/(() => {
         /**
          * @desc Currently selected slide number read by screen reader
          */
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__5 = goog.getMsg(" Slide {$interpolation} of {$interpolation_1} ", {
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__5 = goog.getMsg(" Slide {$interpolation} of {$interpolation_1} ", {
           "interpolation": "\uFFFD0\uFFFD",
           "interpolation_1": "\uFFFD1\uFFFD"
         });
-        i18n_4 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__5;
+        i18n_4 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__5;
       } else {
         i18n_4 = $localize`:Currently selected slide number read by screen reader@@ngb.carousel.slide-number: Slide ${"\uFFFD0\uFFFD"}:INTERPOLATION: of ${"\uFFFD1\uFFFD"}:INTERPOLATION_1: `;
       }
@@ -74946,8 +74924,8 @@ let NgbCarousel = /*#__PURE__*/(() => {
       let i18n_6;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__7 = goog.getMsg("Previous");
-        i18n_6 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__7;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__7 = goog.getMsg("Previous");
+        i18n_6 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__7;
       } else {
         i18n_6 = $localize`:@@ngb.carousel.previous:Previous`;
       }
@@ -74955,8 +74933,8 @@ let NgbCarousel = /*#__PURE__*/(() => {
       let i18n_8;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__9 = goog.getMsg("Next");
-        i18n_8 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__9;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__9 = goog.getMsg("Next");
+        i18n_8 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__9;
       } else {
         i18n_8 = $localize`:@@ngb.carousel.next:Next`;
       }
@@ -76460,8 +76438,8 @@ let NgbDatepickerNavigationSelect = /*#__PURE__*/(() => {
       let i18n_13;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_14 = goog.getMsg("Select month");
-        i18n_13 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_14;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_14 = goog.getMsg("Select month");
+        i18n_13 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_14;
       } else {
         i18n_13 = $localize`:@@ngb.datepicker.select-month:Select month`;
       }
@@ -76469,8 +76447,8 @@ let NgbDatepickerNavigationSelect = /*#__PURE__*/(() => {
       let i18n_15;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_16 = goog.getMsg("Select month");
-        i18n_15 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_16;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_16 = goog.getMsg("Select month");
+        i18n_15 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_16;
       } else {
         i18n_15 = $localize`:@@ngb.datepicker.select-month:Select month`;
       }
@@ -76478,8 +76456,8 @@ let NgbDatepickerNavigationSelect = /*#__PURE__*/(() => {
       let i18n_17;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_18 = goog.getMsg("Select year");
-        i18n_17 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_18;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_18 = goog.getMsg("Select year");
+        i18n_17 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_18;
       } else {
         i18n_17 = $localize`:@@ngb.datepicker.select-year:Select year`;
       }
@@ -76487,8 +76465,8 @@ let NgbDatepickerNavigationSelect = /*#__PURE__*/(() => {
       let i18n_19;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_20 = goog.getMsg("Select year");
-        i18n_19 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_20;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_20 = goog.getMsg("Select year");
+        i18n_19 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_20;
       } else {
         i18n_19 = $localize`:@@ngb.datepicker.select-year:Select year`;
       }
@@ -76581,8 +76559,8 @@ let NgbDatepickerNavigation = /*#__PURE__*/(() => {
       let i18n_21;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_22 = goog.getMsg("Previous month");
-        i18n_21 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_22;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_22 = goog.getMsg("Previous month");
+        i18n_21 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_22;
       } else {
         i18n_21 = $localize`:@@ngb.datepicker.previous-month:Previous month`;
       }
@@ -76590,8 +76568,8 @@ let NgbDatepickerNavigation = /*#__PURE__*/(() => {
       let i18n_23;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_24 = goog.getMsg("Previous month");
-        i18n_23 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_24;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_24 = goog.getMsg("Previous month");
+        i18n_23 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_24;
       } else {
         i18n_23 = $localize`:@@ngb.datepicker.previous-month:Previous month`;
       }
@@ -76599,8 +76577,8 @@ let NgbDatepickerNavigation = /*#__PURE__*/(() => {
       let i18n_25;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_26 = goog.getMsg("Next month");
-        i18n_25 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_26;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_26 = goog.getMsg("Next month");
+        i18n_25 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_26;
       } else {
         i18n_25 = $localize`:@@ngb.datepicker.next-month:Next month`;
       }
@@ -76608,8 +76586,8 @@ let NgbDatepickerNavigation = /*#__PURE__*/(() => {
       let i18n_27;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_28 = goog.getMsg("Next month");
-        i18n_27 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_28;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_28 = goog.getMsg("Next month");
+        i18n_27 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_28;
       } else {
         i18n_27 = $localize`:@@ngb.datepicker.next-month:Next month`;
       }
@@ -82799,8 +82777,8 @@ let NgbPagination = /*#__PURE__*/(() => {
       let i18n_34;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__35 = goog.getMsg("\xAB\xAB");
-        i18n_34 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__35;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__35 = goog.getMsg("\xAB\xAB");
+        i18n_34 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__35;
       } else {
         i18n_34 = $localize`:@@ngb.pagination.first:««`;
       }
@@ -82808,8 +82786,8 @@ let NgbPagination = /*#__PURE__*/(() => {
       let i18n_36;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__37 = goog.getMsg("\xAB");
-        i18n_36 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__37;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__37 = goog.getMsg("\xAB");
+        i18n_36 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__37;
       } else {
         i18n_36 = $localize`:@@ngb.pagination.previous:«`;
       }
@@ -82817,8 +82795,8 @@ let NgbPagination = /*#__PURE__*/(() => {
       let i18n_38;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__39 = goog.getMsg("\xBB");
-        i18n_38 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__39;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__39 = goog.getMsg("\xBB");
+        i18n_38 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__39;
       } else {
         i18n_38 = $localize`:@@ngb.pagination.next:»`;
       }
@@ -82826,8 +82804,8 @@ let NgbPagination = /*#__PURE__*/(() => {
       let i18n_40;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__41 = goog.getMsg("\xBB\xBB");
-        i18n_40 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__41;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__41 = goog.getMsg("\xBB\xBB");
+        i18n_40 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__41;
       } else {
         i18n_40 = $localize`:@@ngb.pagination.last:»»`;
       }
@@ -82835,8 +82813,8 @@ let NgbPagination = /*#__PURE__*/(() => {
       let i18n_44;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__45 = goog.getMsg("First");
-        i18n_44 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__45;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__45 = goog.getMsg("First");
+        i18n_44 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__45;
       } else {
         i18n_44 = $localize`:@@ngb.pagination.first-aria:First`;
       }
@@ -82844,8 +82822,8 @@ let NgbPagination = /*#__PURE__*/(() => {
       let i18n_47;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__48 = goog.getMsg("Previous");
-        i18n_47 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__48;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__48 = goog.getMsg("Previous");
+        i18n_47 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__48;
       } else {
         i18n_47 = $localize`:@@ngb.pagination.previous-aria:Previous`;
       }
@@ -82853,8 +82831,8 @@ let NgbPagination = /*#__PURE__*/(() => {
       let i18n_50;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__51 = goog.getMsg("Next");
-        i18n_50 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__51;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__51 = goog.getMsg("Next");
+        i18n_50 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__51;
       } else {
         i18n_50 = $localize`:@@ngb.pagination.next-aria:Next`;
       }
@@ -82862,8 +82840,8 @@ let NgbPagination = /*#__PURE__*/(() => {
       let i18n_52;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__53 = goog.getMsg("Last");
-        i18n_52 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__53;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__53 = goog.getMsg("Last");
+        i18n_52 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__53;
       } else {
         i18n_52 = $localize`:@@ngb.pagination.last-aria:Last`;
       }
@@ -83497,10 +83475,10 @@ let NgbProgressbar = /*#__PURE__*/(() => {
       let i18n_55;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__56 = goog.getMsg("{$interpolation}", {
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__56 = goog.getMsg("{$interpolation}", {
           "interpolation": "\uFFFD0\uFFFD"
         });
-        i18n_55 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__56;
+        i18n_55 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__56;
       } else {
         i18n_55 = $localize`:@@ngb.progressbar.value:${"\uFFFD0\uFFFD"}:INTERPOLATION:`;
       }
@@ -84312,8 +84290,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_57;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_58 = goog.getMsg("HH");
-        i18n_57 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_58;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_58 = goog.getMsg("HH");
+        i18n_57 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_58;
       } else {
         i18n_57 = $localize`:@@ngb.timepicker.HH:HH`;
       }
@@ -84321,8 +84299,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_59;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_60 = goog.getMsg("Hours");
-        i18n_59 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_60;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_60 = goog.getMsg("Hours");
+        i18n_59 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_60;
       } else {
         i18n_59 = $localize`:@@ngb.timepicker.hours:Hours`;
       }
@@ -84330,8 +84308,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_61;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_62 = goog.getMsg("MM");
-        i18n_61 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_62;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_62 = goog.getMsg("MM");
+        i18n_61 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_62;
       } else {
         i18n_61 = $localize`:@@ngb.timepicker.MM:MM`;
       }
@@ -84339,8 +84317,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_63;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_64 = goog.getMsg("Minutes");
-        i18n_63 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_64;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_64 = goog.getMsg("Minutes");
+        i18n_63 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS_64;
       } else {
         i18n_63 = $localize`:@@ngb.timepicker.minutes:Minutes`;
       }
@@ -84348,8 +84326,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_65;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__66 = goog.getMsg("Increment hours");
-        i18n_65 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__66;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__66 = goog.getMsg("Increment hours");
+        i18n_65 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__66;
       } else {
         i18n_65 = $localize`:@@ngb.timepicker.increment-hours:Increment hours`;
       }
@@ -84357,8 +84335,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_67;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__68 = goog.getMsg("Decrement hours");
-        i18n_67 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__68;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__68 = goog.getMsg("Decrement hours");
+        i18n_67 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__68;
       } else {
         i18n_67 = $localize`:@@ngb.timepicker.decrement-hours:Decrement hours`;
       }
@@ -84366,8 +84344,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_69;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__70 = goog.getMsg("Increment minutes");
-        i18n_69 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__70;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__70 = goog.getMsg("Increment minutes");
+        i18n_69 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__70;
       } else {
         i18n_69 = $localize`:@@ngb.timepicker.increment-minutes:Increment minutes`;
       }
@@ -84375,8 +84353,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_71;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__72 = goog.getMsg("Decrement minutes");
-        i18n_71 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__72;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__72 = goog.getMsg("Decrement minutes");
+        i18n_71 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__72;
       } else {
         i18n_71 = $localize`:@@ngb.timepicker.decrement-minutes:Decrement minutes`;
       }
@@ -84384,8 +84362,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_73;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__74 = goog.getMsg("SS");
-        i18n_73 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__74;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__74 = goog.getMsg("SS");
+        i18n_73 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__74;
       } else {
         i18n_73 = $localize`:@@ngb.timepicker.SS:SS`;
       }
@@ -84393,8 +84371,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_75;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__76 = goog.getMsg("Seconds");
-        i18n_75 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__76;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__76 = goog.getMsg("Seconds");
+        i18n_75 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__76;
       } else {
         i18n_75 = $localize`:@@ngb.timepicker.seconds:Seconds`;
       }
@@ -84402,8 +84380,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_77;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___78 = goog.getMsg("Increment seconds");
-        i18n_77 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___78;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___78 = goog.getMsg("Increment seconds");
+        i18n_77 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___78;
       } else {
         i18n_77 = $localize`:@@ngb.timepicker.increment-seconds:Increment seconds`;
       }
@@ -84411,8 +84389,8 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_79;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___80 = goog.getMsg("Decrement seconds");
-        i18n_79 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___80;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___80 = goog.getMsg("Decrement seconds");
+        i18n_79 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___80;
       } else {
         i18n_79 = $localize`:@@ngb.timepicker.decrement-seconds:Decrement seconds`;
       }
@@ -84420,10 +84398,10 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_81;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___82 = goog.getMsg("{$interpolation}", {
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___82 = goog.getMsg("{$interpolation}", {
           "interpolation": "\uFFFD0\uFFFD"
         });
-        i18n_81 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___82;
+        i18n_81 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___82;
       } else {
         i18n_81 = $localize`:@@ngb.timepicker.PM:${"\uFFFD0\uFFFD"}:INTERPOLATION:`;
       }
@@ -84431,10 +84409,10 @@ let NgbTimepicker = /*#__PURE__*/(() => {
       let i18n_83;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___84 = goog.getMsg("{$interpolation}", {
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___84 = goog.getMsg("{$interpolation}", {
           "interpolation": "\uFFFD0\uFFFD"
         });
-        i18n_83 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___84;
+        i18n_83 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS___84;
       } else {
         i18n_83 = $localize`:@@ngb.timepicker.AM:${"\uFFFD0\uFFFD"}:INTERPOLATION:`;
       }
@@ -84820,8 +84798,8 @@ let NgbToast = /*#__PURE__*/(() => {
       let i18n_85;
 
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
-        const MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__86 = goog.getMsg("Close");
-        i18n_85 = MSG__HOME_VLADA_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__86;
+        const MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__86 = goog.getMsg("Close");
+        i18n_85 = MSG_C__USERS_SVOBO_ECLIPSE_WORKSPACE_APP_IMAGES_PROCESSING_FOR_GOOGLE_PHOTOS_FE_NODE_MODULES__NG_BOOTSTRAP_NG_BOOTSTRAP_FESM2015_NG_BOOTSTRAP_MJS__86;
       } else {
         i18n_85 = $localize`:@@ngb.toast.close-aria:Close`;
       }
@@ -86001,7 +85979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "tiffBlocks": () => (/* binding */ H),
 /* harmony export */   "tiffExtractables": () => (/* binding */ W)
 /* harmony export */ });
-/* harmony import */ var _home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 5861);
+/* harmony import */ var C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 5861);
 
 var e = "undefined" != typeof self ? self : global;
 
@@ -86033,7 +86011,7 @@ if (!e.fetch) {
         i = (n, {
     headers: s
   } = {}) => new Promise( /*#__PURE__*/function () {
-    var _ref = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, a) {
+    var _ref = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, a) {
       let {
         port: o,
         hostname: l,
@@ -86311,9 +86289,9 @@ function x(_x3, _x4, _x5, _x6) {
 }
 
 function _x7() {
-  _x7 = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, i, n) {
+  _x7 = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, i, n) {
     return A.has(i) ? v(e, t, i) : n ? function () {
-      var _ref4 = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+      var _ref4 = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
         let i = yield t(e);
         return new I(i);
       });
@@ -86331,7 +86309,7 @@ function v(_x8, _x9, _x10) {
 }
 
 function _v() {
-  _v = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, i) {
+  _v = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, i) {
     let n = new (A.get(i))(e, t);
     return yield n.read(), n;
   });
@@ -86622,7 +86600,7 @@ class te {
   read(e) {
     var _this = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.file = yield D(e, _this.options);
     })();
   }
@@ -86642,7 +86620,7 @@ class te {
   parse() {
     var _this2 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let {
         output: e,
         errors: t
@@ -86654,13 +86632,13 @@ class te {
   executeParsers() {
     var _this3 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let {
         output: e
       } = _this3;
       yield _this3.fileParser.parse();
       let t = Object.values(_this3.parsers).map( /*#__PURE__*/function () {
-        var _ref2 = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
+        var _ref2 = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
           let i = yield t.parse();
           t.assignToOutput(e, i);
         });
@@ -86676,7 +86654,7 @@ class te {
   extractThumbnail() {
     var _this4 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this4.setup();
 
       let {
@@ -86703,7 +86681,7 @@ function ie(_x12, _x13) {
 }
 
 function _ie() {
-  _ie = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _ie = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let i = new te(t);
     return yield i.read(e), i.parse();
   });
@@ -86740,7 +86718,7 @@ class se {
     var _this5 = this;
 
     c(this, "errors", []), c(this, "ensureSegmentChunk", /*#__PURE__*/function () {
-      var _ref3 = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+      var _ref3 = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
         let t = e.start,
             i = e.size || 65536;
         if (_this5.file.chunked) {
@@ -86786,7 +86764,7 @@ class se {
   readSegments(e) {
     var _this6 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let t = e.map(_this6.ensureSegmentChunk);
       yield Promise.all(t);
     })();
@@ -86891,7 +86869,7 @@ class he extends se {
   parse() {
     var _this7 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield _this7.findAppSegments(), yield _this7.readSegments(_this7.appSegments), _this7.mergeMultiSegments(), _this7.createParsers(_this7.mergedAppSegments || _this7.appSegments);
     })();
   }
@@ -86903,7 +86881,7 @@ class he extends se {
   findAppSegments(e = 0, t) {
     var _this8 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this8.setupSegmentFinderArgs(t);
 
       let {
@@ -86998,7 +86976,7 @@ class he extends se {
   getOrFindSegment(e) {
     var _this9 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let t = _this9.getSegment(e);
 
       return void 0 === t && (yield _this9.findAppSegments(0, [e]), t = _this9.getSegment(e)), t;
@@ -87150,7 +87128,7 @@ class fe extends ce {
   parse() {
     var _this10 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this10.parseHeader();
 
       let {
@@ -87186,7 +87164,7 @@ class fe extends ce {
   parseIfd0Block() {
     var _this11 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this11.ifd0) return;
       let {
         file: e
@@ -87202,7 +87180,7 @@ class fe extends ce {
   parseExifBlock() {
     var _this12 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this12.exif) return;
       if (_this12.ifd0 || (yield _this12.parseIfd0Block()), void 0 === _this12.exifOffset) return;
       _this12.file.tiff && (yield _this12.file.ensureChunk(_this12.exifOffset, S(_this12.options)));
@@ -87221,7 +87199,7 @@ class fe extends ce {
   parseGpsBlock() {
     var _this13 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this13.gps) return;
       if (_this13.ifd0 || (yield _this13.parseIfd0Block()), void 0 === _this13.gpsOffset) return;
 
@@ -87234,7 +87212,7 @@ class fe extends ce {
   parseInteropBlock() {
     var _this14 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this14.interop && (_this14.ifd0 || (yield _this14.parseIfd0Block()), void 0 !== _this14.interopOffset || _this14.exif || (yield _this14.parseExifBlock()), void 0 !== _this14.interopOffset)) return _this14.parseBlock(_this14.interopOffset, "interop");
     })();
   }
@@ -87242,7 +87220,7 @@ class fe extends ce {
   parseThumbnailBlock(e = !1) {
     var _this15 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this15.ifd1 && !_this15.ifd1Parsed && (!_this15.options.mergeOutput || e)) return _this15.findIfd1Offset(), _this15.ifd1Offset > 0 && (_this15.parseBlock(_this15.ifd1Offset, "ifd1"), _this15.ifd1Parsed = !0), _this15.ifd1;
     })();
   }
@@ -87250,7 +87228,7 @@ class fe extends ce {
   extractThumbnail() {
     var _this16 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this16.headerParsed || _this16.parseHeader(), _this16.ifd1Parsed || (yield _this16.parseThumbnailBlock(!0)), void 0 === _this16.ifd1) return;
 
       let e = _this16.ifd1.get(513),
@@ -87341,7 +87319,7 @@ function Se(_x15) {
 }
 
 function _Se() {
-  _Se = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _Se = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     let t = new te(me);
     yield t.read(e);
     let i = yield t.parse();
@@ -87371,7 +87349,7 @@ function ye(_x16) {
 }
 
 function _ye() {
-  _ye = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _ye = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     let t = new te(Ce);
     yield t.read(e);
     let i = yield t.extractThumbnail();
@@ -87385,7 +87363,7 @@ function be(_x17) {
 }
 
 function _be() {
-  _be = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _be = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     let t = yield this.thumbnail(e);
 
     if (void 0 !== t) {
@@ -87406,7 +87384,7 @@ function Pe(_x18) {
 }
 
 function _Pe() {
-  _Pe = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _Pe = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     let t = new te(Ie);
     yield t.read(e);
     let i = yield t.parse();
@@ -87506,7 +87484,7 @@ function Ae(_x19) {
 }
 
 function _Ae() {
-  _Ae = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _Ae = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     let t = yield Pe(e);
     return Object.assign({
       canvas: we,
@@ -87562,7 +87540,7 @@ class De extends I {
   ensureChunk(e, t) {
     var _this17 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this17.chunked && (_this17.ranges.available(e, t) || (yield _this17.readChunk(e, t)));
     })();
   }
@@ -87616,7 +87594,7 @@ class ve extends De {
   readWhole() {
     var _this18 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this18.chunked = !1, yield _this18.readChunk(_this18.nextChunkOffset);
     })();
   }
@@ -87624,7 +87602,7 @@ class ve extends De {
   readChunked() {
     var _this19 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this19.chunked = !0, yield _this19.readChunk(0, _this19.options.firstChunkSize);
     })();
   }
@@ -87632,7 +87610,7 @@ class ve extends De {
   readNextChunk(e = this.nextChunkOffset) {
     var _this20 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this20.fullyRead) return _this20.chunksRead++, !1;
       let t = _this20.options.chunkSize,
           i = yield _this20.readChunk(e, t);
@@ -87643,7 +87621,7 @@ class ve extends De {
   readChunk(e, t) {
     var _this21 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this21.chunksRead++, 0 !== (t = _this21.safeWrapAddress(e, t))) return _this21._readChunk(e, t);
     })();
   }
@@ -87676,7 +87654,7 @@ A.set("blob", class extends ve {
   readWhole() {
     var _this22 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this22.chunked = !1;
       let e = yield R(_this22.input);
 
@@ -87691,7 +87669,7 @@ A.set("blob", class extends ve {
   _readChunk(e, t) {
     var _this23 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let i = t ? e + t : void 0,
           n = _this23.input.slice(e, i),
           s = yield R(n);
@@ -87748,7 +87726,7 @@ A.set("url", class extends ve {
   readWhole() {
     var _this24 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this24.chunked = !1;
       let e = yield M(_this24.input);
       e instanceof ArrayBuffer ? _this24._swapArrayBuffer(e) : e instanceof Uint8Array && _this24._swapBuffer(e);
@@ -87758,7 +87736,7 @@ A.set("url", class extends ve {
   _readChunk(e, t) {
     var _this25 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let i = t ? e + t - 1 : void 0,
           n = _this25.options.httpHeaders || {};
       (e || i) && (n.range = `bytes=${[e, i].join("-")}`);
@@ -87836,7 +87814,7 @@ class Le extends Re {
   parse() {
     var _this26 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let e = _this26.file.getUint32(0),
           t = _this26.parseBoxHead(e);
 
@@ -87849,7 +87827,7 @@ class Le extends Re {
   registerSegment(e, t, i) {
     var _this27 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield _this27.file.ensureChunk(t, i);
 
       let n = _this27.file.subarray(t, i);
@@ -87861,7 +87839,7 @@ class Le extends Re {
   findIcc(e) {
     var _this28 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let t = _this28.findBox(e, "iprp");
 
       if (void 0 === t) return;
@@ -87879,7 +87857,7 @@ class Le extends Re {
   findExif(e) {
     var _this29 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let t = _this29.findBox(e, "iinf");
 
       if (void 0 === t) return;
@@ -88373,7 +88351,7 @@ function st(_x20, _x21, _x22) {
 }
 
 function _st() {
-  _st = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, i) {
+  _st = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, i) {
     let n = new q(t);
     n.chunked = !1, void 0 === i && "string" == typeof e && (i = function (e) {
       let t = e.toLowerCase().split(".").pop();
@@ -88410,7 +88388,7 @@ function rt(_x23, _x24, _x25) {
 }
 
 function _rt() {
-  _rt = (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, i) {
+  _rt = (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, i) {
     let n = i[e];
     return n.enabled = !0, n.parse = !0, T.get(e).parse(t, n);
   });
@@ -88422,7 +88400,7 @@ A.set("fs", class extends ve {
   readWhole() {
     var _this30 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this30.chunked = !1, _this30.fs = yield at;
       let e = yield _this30.fs.readFile(_this30.input);
 
@@ -88433,7 +88411,7 @@ A.set("fs", class extends ve {
   readChunked() {
     var _this31 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this31.chunked = !0, _this31.fs = yield at, yield _this31.open(), yield _this31.readChunk(0, _this31.options.firstChunkSize);
     })();
   }
@@ -88441,7 +88419,7 @@ A.set("fs", class extends ve {
   open() {
     var _this32 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       void 0 === _this32.fh && (_this32.fh = yield _this32.fs.open(_this32.input, "r"), _this32.size = (yield _this32.fh.stat(_this32.input)).size);
     })();
   }
@@ -88449,7 +88427,7 @@ A.set("fs", class extends ve {
   _readChunk(e, t) {
     var _this33 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       void 0 === _this33.fh && (yield _this33.open()), e + t > _this33.size && (t = _this33.size - e);
 
       var i = _this33.subarray(e, t, !0);
@@ -88461,7 +88439,7 @@ A.set("fs", class extends ve {
   close() {
     var _this34 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this34.fh) {
         let e = _this34.fh;
         _this34.fh = void 0, yield e.close();
@@ -88478,7 +88456,7 @@ A.set("base64", class extends ve {
   _readChunk(e, t) {
     var _this35 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let i,
           n,
           r = _this35.input;
@@ -88525,7 +88503,7 @@ class ot extends se {
   parse() {
     var _this36 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let {
         tiff: e,
         xmp: t,
@@ -88565,7 +88543,7 @@ class ut extends se {
   parse() {
     var _this37 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let {
         file: e
       } = _this37;
@@ -88576,7 +88554,7 @@ class ut extends se {
   findPngChunksInRange(e, t) {
     var _this38 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let {
         file: i
       } = _this38;
@@ -88621,7 +88599,7 @@ class ut extends se {
   findExif() {
     var _this39 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let e = _this39.metaChunks.find(e => "exif" === e.type);
 
       e && _this39.injectSegment("tiff", e.chunk);
@@ -88631,7 +88609,7 @@ class ut extends se {
   findXmp() {
     var _this40 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let e = _this40.metaChunks.filter(e => "itxt" === e.type);
 
       for (let t of e) {
@@ -88643,7 +88621,7 @@ class ut extends se {
   findIcc() {
     var _this41 = this;
 
-    return (0,_home_vlada_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_svobo_eclipse_workspace_app_images_processing_for_google_photos_fe_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let e = _this41.metaChunks.find(e => "iccp" === e.type);
 
       if (!e) return;

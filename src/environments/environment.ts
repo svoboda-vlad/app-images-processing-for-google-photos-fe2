@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   SERVER_URL: 'http://localhost:8080/',
   GOOGLE_CLIENT_ID: '733460469950-rnm4b6pek82bfrnd8f5hf5esa5an0ikk.apps.googleusercontent.com',
-  FRONT_END_URL: 'http://localhost:4200/'
+  FRONT_END_URL: 'http://localhost:4200/',
+  ADMIN_USERNAME: '108564931079495851483'
 };
 
 /*

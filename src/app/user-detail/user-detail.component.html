@@ -25,10 +25,6 @@
           <th>Family Name</th>
           <td>{{ user.familyName }}</td>
         </tr>
-        <tr>
-          <th>Roles</th>
-          <td><span *ngFor="let userRoles of user.userRoles; let i = index"><span *ngIf="i>0">, </span>{{ userRoles.role.name }}</span></td>
-        </tr>
       </tbody>
     </table>
     <div>

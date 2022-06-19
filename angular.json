@@ -73,6 +73,9 @@
             "production": {
               "browserTarget": "images-processing-for-google-photos:build:production"
             },
+            "staging": {
+              "browserTarget": "images-processing-for-google-photos:build:staging"
+            },
             "development": {
               "browserTarget": "images-processing-for-google-photos:build:development"
             }

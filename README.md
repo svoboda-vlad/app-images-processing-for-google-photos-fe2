@@ -13,6 +13,10 @@ On local machine:
 
 ```
 ng serve
+
+ng serve --configuration=staging
+
+ng serve --configuration=production
 ```
 
 In Vagrant box:
@@ -40,7 +44,6 @@ cd images-processing-for-google-photos
 ```
 
 ## GitHub Pages deployment
-script: bash ghpagesdeploy.sh
 
 ```
 ng build --output-path docs --base-href "https://svoboda-vlad.github.io/app-images-processing-for-google-photos-fe/"

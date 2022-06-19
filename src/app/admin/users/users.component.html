@@ -5,9 +5,7 @@
       <thead>
         <tr class="table-secondary">
           <th scope="col">Username</th>
-          <th scope="col">E-mail</th>          
-          <th scope="col">Last Login</th>
-          <th scope="col">Previous Login</th>
+          <th scope="col">E-mail</th>
           <th scope="col">Given Name</th>
           <th scope="col">Family Name</th>
           <th scole="col">Roles</th>
@@ -17,8 +15,6 @@
         <tr *ngFor="let user of users">
           <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.lastLoginDateTime  | date:'yyyy-MM-dd HH:mm' }}</td>
-          <td>{{ user.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
           <td>{{ user.givenName }}</td>
           <td>{{ user.familyName }}</td>
           <td>

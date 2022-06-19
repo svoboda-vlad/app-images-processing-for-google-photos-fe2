@@ -185,8 +185,7 @@ export class ImagesProcessingComponent implements OnInit {
     let group: MediaItemsGroup;
     let id = 1;
     this.mediaItemsForGrouping.forEach((item, i) => {
-      let groupName: string = item.mediaItem.dateTime.format('YYYY-MM-DD') + ' (' + item.mediaItem.dateTime.format('dd H') + ':00) text';
-      groupName = this.translateWeekdayNamesToCzech(groupName);
+      let groupName: string = "NEW " + item.mediaItem.dateTime.format('YYYY-MM-DD') + ' (' + item.mediaItem.dateTime.format('dd H') + ':00) text';
       // if the first file in the sequence, create a new group
       if (i === 0) {
         group = new MediaItemsGroup(id, item.mediaItem.dateTime, item.mediaItem.dateTime, [item], groupName);
@@ -229,16 +228,6 @@ export class ImagesProcessingComponent implements OnInit {
         group.name = newName;
       }
     });
-  }
-
-  private translateWeekdayNamesToCzech(name: string): string {
-    return name.replace('Mo', 'po/Mo')
-      .replace('Tu', 'út/Tu')
-      .replace('We', 'st/We')
-      .replace('Th', 'čt/Th')
-      .replace('Fr', 'pá/Fr')
-      .replace('Sa', 'so/Sa')
-      .replace('Su', 'ne/Su');
   }
 
   // async/await + for...of loop to ensure sequential API calls
@@ -299,14 +288,6 @@ export class ImagesProcessingComponent implements OnInit {
     this.mediaItemsGroups = [];
     this.groupsCreated = false;
     this.uploadingStatus = UploadingStatus.None;
-  }
-
-  removeItemFromGroup(gr: MediaItemsGroup, item: MediaItemForGrouping): void {
-    this.mediaItemsGroups.forEach((group) => {
-      if (group.id === gr.id) {
-        group.mediaItemsForGrouping.splice(group.mediaItemsForGrouping.indexOf(item), 1);
-      }
-    });
   }
 
   changeParamsFormShow() {

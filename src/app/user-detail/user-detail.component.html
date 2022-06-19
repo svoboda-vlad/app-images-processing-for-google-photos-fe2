@@ -26,14 +26,6 @@
           <td>{{ user.familyName }}</td>
         </tr>
         <tr>
-          <th>Last Login</th>
-          <td>{{ user.lastLoginDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
-        </tr>
-        <tr>
-          <th>Previous Login</th>
-          <td>{{ user.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
-        </tr>
-        <tr>
           <th>Roles</th>
           <td><span *ngFor="let userRoles of user.userRoles; let i = index"><span *ngIf="i>0">, </span>{{ userRoles.role.name }}</span></td>
         </tr>

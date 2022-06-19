@@ -45,16 +45,12 @@ export class UserService {
 export class User {
   username: string;
   email: string;
-  lastLoginDateTime: Date;
-  previousLoginDateTime: Date;
   givenName: string;
   familyName: string;
   userRoles: UserRoles[];
 
-  constructor(username: string, email: string, lastLoginDateTime: Date, previousLoginDateTime: Date, givenName: string, familyName: string, userRoles: UserRoles[]) {
+  constructor(username: string, email: string, givenName: string, familyName: string, userRoles: UserRoles[]) {
       this.username = username;
-      this.lastLoginDateTime = lastLoginDateTime;
-      this.previousLoginDateTime = previousLoginDateTime;
       this.givenName = givenName;
       this.familyName = familyName;
       this.email = email;

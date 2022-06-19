@@ -8,7 +8,6 @@
           <th scope="col">E-mail</th>
           <th scope="col">Given Name</th>
           <th scope="col">Family Name</th>
-          <th scole="col">Roles</th>
         </tr>
       </thead>
       <tbody>
@@ -17,9 +16,6 @@
           <td>{{ user.email }}</td>
           <td>{{ user.givenName }}</td>
           <td>{{ user.familyName }}</td>
-          <td>
-            <span *ngFor="let userRoles of user.userRoles; let i = index"><span *ngIf="i>0">, </span>{{ userRoles.role.name }}</span>
-          </td>
         </tr>
       </tbody>
     </table>

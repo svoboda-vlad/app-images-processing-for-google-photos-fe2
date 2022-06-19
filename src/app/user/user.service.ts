@@ -28,7 +28,7 @@ export class UserService {
 
   isAdmin(): boolean {
     if (this.user == null) return false;
-    return this.user.userRoles.filter(r => r.role.name == 'ROLE_ADMIN').length != 0;
+    return this.user.username == environment.ADMIN_USERNAME;
   }
 
   logOut(): void {
@@ -47,30 +47,12 @@ export class User {
   email: string;
   givenName: string;
   familyName: string;
-  userRoles: UserRoles[];
 
-  constructor(username: string, email: string, givenName: string, familyName: string, userRoles: UserRoles[]) {
+  constructor(username: string, email: string, givenName: string, familyName: string) {
       this.username = username;
       this.givenName = givenName;
       this.familyName = familyName;
       this.email = email;
-      this.userRoles = userRoles;
     }
 
-}
-
-export class UserRoles {
-  role: Role;
-
-  constructor(role: Role) {
-    this.role = role;
-  }
-}
-
-export class Role {
-  name: string;
-
-  constructor(name: string) {
-    this.name = name;
-  }
 }

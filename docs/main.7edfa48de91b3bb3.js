@@ -492,10 +492,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppRoutingModule": () => (/* binding */ AppRoutingModule)
 /* harmony export */ });
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 4202);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 4202);
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home/home.component */ 5067);
 /* harmony import */ var _shared_auth_guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shared/auth.guard */ 5809);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 5000);
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environments/environment */ 2340);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 5000);
+
 
 
 
@@ -514,7 +516,7 @@ const routes = [{
   path: 'admin',
   loadChildren: () => __webpack_require__.e(/*! import() */ 95).then(__webpack_require__.bind(__webpack_require__, /*! ./admin/admin.module */ 7095)).then(m => m.AdminModule),
   data: {
-    role: 'ROLE_ADMIN'
+    role: src_environments_environment__WEBPACK_IMPORTED_MODULE_2__.environment.ADMIN_USERNAME
   },
   canActivate: [_shared_auth_guard__WEBPACK_IMPORTED_MODULE_1__.AuthGuard]
 }, {
@@ -534,19 +536,19 @@ let AppRoutingModule = /*#__PURE__*/(() => {
     return new (t || AppRoutingModule)();
   };
 
-  AppRoutingModule.ɵmod = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule"]({
+  AppRoutingModule.ɵmod = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineNgModule"]({
     type: AppRoutingModule
   });
-  AppRoutingModule.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({
-    imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule.forRoot(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule]
+  AppRoutingModule.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjector"]({
+    imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_4__.RouterModule.forRoot(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_4__.RouterModule]
   });
   return AppRoutingModule;
 })();
 
 (function () {
-  (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsetNgModuleScope"](AppRoutingModule, {
-    imports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule],
-    exports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule]
+  (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵsetNgModuleScope"](AppRoutingModule, {
+    imports: [_angular_router__WEBPACK_IMPORTED_MODULE_4__.RouterModule],
+    exports: [_angular_router__WEBPACK_IMPORTED_MODULE_4__.RouterModule]
   });
 })();
 
@@ -1026,8 +1028,7 @@ let AuthGuard = /*#__PURE__*/(() => {
             return true;
           }
 
-          const userRoles = user.userRoles.find(r => r.role.name == role);
-          if (userRoles) return true;
+          if (user.username = role) return true;
           this.router.navigate(['/home']);
           return false;
         }
@@ -1166,9 +1167,7 @@ let ErrorResponseService = /*#__PURE__*/(() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserService": () => (/* binding */ UserService),
-/* harmony export */   "User": () => (/* binding */ User),
-/* harmony export */   "UserRoles": () => (/* binding */ UserRoles),
-/* harmony export */   "Role": () => (/* binding */ Role)
+/* harmony export */   "User": () => (/* binding */ User)
 /* harmony export */ });
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 2340);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 4850);
@@ -1200,7 +1199,7 @@ let UserService = /*#__PURE__*/(() => {
 
     isAdmin() {
       if (this.user == null) return false;
-      return this.user.userRoles.filter(r => r.role.name == 'ROLE_ADMIN').length != 0;
+      return this.user.username == src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.ADMIN_USERNAME;
     }
 
     logOut() {
@@ -1225,24 +1224,11 @@ let UserService = /*#__PURE__*/(() => {
   return UserService;
 })();
 class User {
-  constructor(username, email, givenName, familyName, userRoles) {
+  constructor(username, email, givenName, familyName) {
     this.username = username;
     this.givenName = givenName;
     this.familyName = familyName;
     this.email = email;
-    this.userRoles = userRoles;
-  }
-
-}
-class UserRoles {
-  constructor(role) {
-    this.role = role;
-  }
-
-}
-class Role {
-  constructor(name) {
-    this.name = name;
   }
 
 }
@@ -1264,7 +1250,8 @@ const environment = {
   production: true,
   SERVER_URL: 'https://processing-gphotos.herokuapp.com/',
   GOOGLE_CLIENT_ID: '733460469950-rnm4b6pek82bfrnd8f5hf5esa5an0ikk.apps.googleusercontent.com',
-  FRONT_END_URL: 'https://svoboda-vlad.github.io/app-images-processing-for-google-photos-fe/'
+  FRONT_END_URL: 'https://svoboda-vlad.github.io/app-images-processing-for-google-photos-fe/',
+  ADMIN_USERNAME: '108564931079495851483'
 };
 
 /***/ }),

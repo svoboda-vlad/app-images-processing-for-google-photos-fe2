@@ -15,8 +15,6 @@ On local machine:
 ng serve
 
 ng serve --configuration=staging
-
-ng serve --configuration=production
 ```
 
 In Vagrant box:

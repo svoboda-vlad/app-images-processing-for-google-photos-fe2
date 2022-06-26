@@ -1,5 +1,8 @@
 <ipfgp-user-info></ipfgp-user-info>
 <div *ngIf="parameters$ | async as parameters; else loadingOrError">
+  <div class="alert alert-info" *ngIf="lastUploadInfo$ | async as lastUploadInfo">
+    <div>Last successfull upload: {{ lastUploadInfo.lastUploadDateTime | date:'yyyy-MM-dd HH:mm' }}.</div>
+  </div>
   <div class="mx-auto mb-2 p-3">
     <h3>Parameters
       <button (click)="changeParamsFormShow()" class="btn btn-primary m-2">
@@ -101,7 +104,7 @@
     <div class="card p-3 mb-2 bg-light text-dark mx-auto">
       <div class="card-body">
         <p class="card-text">
-          <button (click)="createAlbumsAndMedia()" class="btn btn-primary mb-2" [disabled]="!groupsCreated">Create
+          <button (click)="uploadToGooglePhotos()" class="btn btn-primary mb-2" [disabled]="!groupsCreated">Create
             albums
             and upload files to Google Photos</button>
         </p>

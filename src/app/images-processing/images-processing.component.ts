@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgxPicaErrorInterface, NgxPicaResizeOptionsInterface, NgxPicaService } from '@digitalascetic/ngx-pica';
 import { AlbumService } from './album.service';
@@ -6,10 +6,11 @@ import { MediaItem, MediaItemForGrouping, MediaItemService, MediaItemsGroup } fr
 import * as dayjs from 'dayjs';
 import * as customParseFormat from 'dayjs/plugin/customParseFormat';
 import { GoogleLoginService } from '../google-login/google-login.service';
-import { Observable, throwError } from 'rxjs';
+import { Observable, Subscription, throwError } from 'rxjs';
 import { Parameters, ParametersService } from '../parameters/parameters.service';
 import { catchError, map } from 'rxjs/operators';
 import { DateUtilService } from '../shared/date-util.service';
+import { LastUploadInfoService, LastUploadInfo } from '../last-upload-info/last-upload-info.service';
 
 export const timeDiffGroupDefault = 7200;
 export const resizeWidthDefault = 1000;
@@ -21,7 +22,7 @@ dayjs.extend(customParseFormat);
   templateUrl: './images-processing.component.html',
   styleUrls: ['./images-processing.component.scss']
 })
-export class ImagesProcessingComponent implements OnInit {
+export class ImagesProcessingComponent implements OnInit, OnDestroy {
 
   mediaItems: MediaItem[] = [];
   mediaItemsForGrouping: MediaItemForGrouping[] = [];
@@ -66,6 +67,8 @@ export class ImagesProcessingComponent implements OnInit {
   paramsFormShow: boolean = true;
   parameters$!: Observable<Parameters>;
   error!: Object;
+  lastUploadInfoSubscription!: Subscription;
+  lastUploadInfo$!: Observable<LastUploadInfo>
 
   constructor(private ngxPicaService: NgxPicaService,
     private fb: FormBuilder,
@@ -73,7 +76,8 @@ export class ImagesProcessingComponent implements OnInit {
     private albumService: AlbumService,
     private googleLoginService: GoogleLoginService,
     private parametersService: ParametersService,
-    private dateUtilService: DateUtilService
+    private dateUtilService: DateUtilService,
+    private lastUploadInfoService: LastUploadInfoService
     ) { }
 
   ngOnInit(): void {
@@ -91,7 +95,12 @@ export class ImagesProcessingComponent implements OnInit {
         return throwError(err);
       })
     )
+    this.lastUploadInfo$ = this.lastUploadInfoService.getLastUploadInfo();
   }
+
+  ngOnDestroy(): void {
+    this.lastUploadInfoSubscription.unsubscribe();
+  }  
 
   processFiles(files: any): void {
     if (files.length > 0) {
@@ -228,6 +237,17 @@ export class ImagesProcessingComponent implements OnInit {
         group.name = newName;
       }
     });
+  }
+
+  async uploadToGooglePhotos() {
+    await this.createAlbumsAndMedia();
+    this.saveLastUploadInfo();
+  }
+
+  private saveLastUploadInfo() {
+    if (this.uploadingStatus == UploadingStatus.Success) {
+      this.lastUploadInfoSubscription = this.lastUploadInfoService.updateLastUploadInfo().subscribe();
+    }
   }
 
   // async/await + for...of loop to ensure sequential API calls

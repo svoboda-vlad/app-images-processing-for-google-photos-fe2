@@ -15,6 +15,7 @@ import { LastUploadInfoService, LastUploadInfo } from '../last-upload-info/last-
 export const timeDiffGroupDefault = 7200;
 export const resizeWidthDefault = 1000;
 export const resizeHeightDefault = 1000;
+export const maxUploadTries = 5;
 dayjs.extend(customParseFormat);
 
 @Component({
@@ -68,7 +69,8 @@ export class ImagesProcessingComponent implements OnInit, OnDestroy {
   parameters$!: Observable<Parameters>;
   error!: Object;
   lastUploadInfoSubscription!: Subscription;
-  lastUploadInfo$!: Observable<LastUploadInfo>
+  lastUploadInfo$!: Observable<LastUploadInfo>;
+  uploadTriesCount: number = 0;
 
   constructor(private ngxPicaService: NgxPicaService,
     private fb: FormBuilder,
@@ -119,6 +121,7 @@ export class ImagesProcessingComponent implements OnInit, OnDestroy {
     this.groupsCreated = false;
     this.uploadingStatus = UploadingStatus.None;
     this.paramsFormShow = false;
+    this.uploadTriesCount = 0;
   }
 
   getMediaItems(fileList: File[]): void {
@@ -254,6 +257,7 @@ export class ImagesProcessingComponent implements OnInit, OnDestroy {
   // not working with arrays' forEach() method
   async createAlbumsAndMedia(): Promise<void> {
     this.uploadingStatus = UploadingStatus.InProgress;
+    this.uploadTriesCount = 0;
     for (const group of this.mediaItemsGroups) {
       if (group.albumId == null) {
         await this.albumService.albums(group, this.googleLoginService.getAccessToken()!).toPromise().then(async (album) => {
@@ -271,14 +275,19 @@ export class ImagesProcessingComponent implements OnInit, OnDestroy {
   }
 
   async createMedia(group: MediaItemsGroup): Promise<void> {
-    for (const item of group.mediaItemsForGrouping) {
-      if (!item.mediaItem.uploadSuccess) {
-        await this.mediaItemService.uploads(item.mediaItem, this.googleLoginService.getAccessToken()!).toPromise().then(async (uploadToken: string) => {
-          await this.mediaItemService.batchCreate(item.mediaItem, uploadToken, this.googleLoginService.getAccessToken()!, group.albumId).toPromise().then(() => item.mediaItem.uploadSuccess = true)
-            .catch(() => this.uploadingStatus = UploadingStatus.Fail);
-        })
-          .catch(() => this.uploadingStatus = UploadingStatus.Fail);
-      }
+    for (let i = 0; i < maxUploadTries; i++) {
+      if (this.getMediaItemsCount() > this.getUploadedCount()) {
+        this.uploadTriesCount = i + 1;
+        for (const item of group.mediaItemsForGrouping) {
+          if (!item.mediaItem.uploadSuccess) {
+            await this.mediaItemService.uploads(item.mediaItem, this.googleLoginService.getAccessToken()!).toPromise().then(async (uploadToken: string) => {
+              await this.mediaItemService.batchCreate(item.mediaItem, uploadToken, this.googleLoginService.getAccessToken()!, group.albumId).toPromise().then(() => item.mediaItem.uploadSuccess = true)
+                .catch(() => this.uploadingStatus = UploadingStatus.Fail);
+            })
+              .catch(() => this.uploadingStatus = UploadingStatus.Fail);
+          }
+        }
+      }     
     }
   }
 

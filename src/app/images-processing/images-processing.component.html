@@ -5,7 +5,7 @@
   </div>
   <div class="mx-auto mb-2 p-3">
     <h3>Parameters
-      <button (click)="changeParamsFormShow()" class="btn btn-primary m-2">
+      <button (click)="changeParamsFormShow()" class="btn btn-outline-primary m-2">
         {{ paramsFormShow ? 'Hide' : 'Show' }}
       </button>
     </h3>
@@ -70,7 +70,7 @@
       <p class="card-text text-primary" *ngIf="mediaItems.length == filesCount">Finished: {{ mediaItems.length }} files
         resized to {{ resizeWidth }}x{{ resizeHeight }}px.</p>
       <div *ngIf="filesLoaded">
-        <button class="btn btn-primary mb-2" (click)="createGroups()">
+        <button class="btn btn-outline-primary mb-2" (click)="createGroups()">
           Create groups
         </button>
         <p class="card-text" *ngIf="getMediaItemsCount()">
@@ -104,15 +104,14 @@
     <div class="card p-3 mb-2 bg-light text-dark mx-auto">
       <div class="card-body">
         <p class="card-text">
-          <button (click)="uploadToGooglePhotos()" class="btn btn-primary mb-2" [disabled]="!groupsCreated">Create
-            albums
-            and upload files to Google Photos</button>
+          <button (click)="uploadToGooglePhotos()" class="btn btn-success mb-2" [disabled]="!groupsCreated">
+            UPLOAD to Google Photos
+          </button>
         </p>
         <p class="card-text text-danger" *ngIf="uploadingStatus == 'InProgress'">UPLOADING IN PROGRESS</p>
         <p class="card-text text-primary" *ngIf="uploadingStatus == 'Success'">UPLOADING SUCCESSFULLY FINISHED</p>
-        <p class="card-text text-danger" *ngIf="uploadingStatus == 'Fail'">UPLOADING FAILED (see the Groups Overview
-          table
-          for details)</p>
+        <p class="card-text text-danger" *ngIf="uploadingStatus == 'Fail'">UPLOADING FAILED</p>
+        <p class="card-text text-info" *ngIf="uploadingStatus != 'None'">Upload tries: {{uploadTriesCount}}</p>        
       </div>
     </div>
   </div>

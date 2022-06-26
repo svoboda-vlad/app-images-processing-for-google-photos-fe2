@@ -16,19 +16,19 @@ export class LastUploadInfoService {
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
 
-  getLastUploadInfo() : Observable<LastUpdateInfo> {
-    return this.http.get<LastUpdateInfo>(environment.SERVER_URL + this.lastUploadInfoUrl).pipe(
+  getLastUploadInfo() : Observable<LastUploadInfo> {
+    return this.http.get<LastUploadInfo>(environment.SERVER_URL + this.lastUploadInfoUrl).pipe(
       catchError(this.errorResponseService.handleError));
   }
 
-  updateLastUploadInfo() : Observable<LastUpdateInfo> {
-    return this.http.get<LastUpdateInfo>(environment.SERVER_URL + this.lastUploadInfoUpdateUrl).pipe(
+  updateLastUploadInfo() : Observable<LastUploadInfo> {
+    return this.http.get<LastUploadInfo>(environment.SERVER_URL + this.lastUploadInfoUpdateUrl).pipe(
       catchError(this.errorResponseService.handleError));
   }
 
 }
 
-export class LastUpdateInfo {
+export class LastUploadInfo {
   lastUploadDateTime: Date;
 
   constructor(lastUploadDateTime: Date) {
